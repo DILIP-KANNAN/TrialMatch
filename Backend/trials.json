@@ -1,0 +1,123 @@
+[
+  {
+    "trial_id": "T1",
+    "condition": "Type 2 Diabetes",
+    "inclusion": [
+      "Age between 40 and 65",
+      "HbA1c > 7.0",
+      "No insulin therapy"
+    ],
+    "exclusion": [
+      "Kidney disease",
+      "Heart failure"
+    ]
+  },
+  {
+    "trial_id": "T2",
+    "condition": "Type 2 Diabetes",
+    "inclusion": [
+      "Age between 30 and 60",
+      "HbA1c between 6.5 and 9.0",
+      "BMI > 25"
+    ],
+    "exclusion": [
+      "Pregnant",
+      "Liver disease"
+    ]
+  },
+  {
+    "trial_id": "T3",
+    "condition": "Type 2 Diabetes",
+    "inclusion": [
+      "Age between 50 and 75",
+      "HbA1c > 8.0"
+    ],
+    "exclusion": [
+      "Insulin therapy",
+      "Stroke history"
+    ]
+  },
+  {
+    "trial_id": "T4",
+    "condition": "Type 2 Diabetes",
+    "inclusion": [
+      "Age between 18 and 45",
+      "HbA1c > 6.5"
+    ],
+    "exclusion": [
+      "Smoking",
+      "Hypertension"
+    ]
+  },
+  {
+    "trial_id": "T5",
+    "condition": "Type 2 Diabetes",
+    "inclusion": [
+      "Age between 35 and 70",
+      "HbA1c between 7.0 and 10.0",
+      "BMI > 30"
+    ],
+    "exclusion": [
+      "Kidney disease"
+    ]
+  },
+  {
+    "trial_id": "T6",
+    "condition": "Type 2 Diabetes",
+    "inclusion": [
+      "Age between 25 and 55",
+      "HbA1c > 7.5"
+    ],
+    "exclusion": [
+      "Pregnant",
+      "Heart disease"
+    ]
+  },
+  {
+    "trial_id": "T7",
+    "condition": "Type 2 Diabetes",
+    "inclusion": [
+      "Age between 45 and 80",
+      "HbA1c > 7.0"
+    ],
+    "exclusion": [
+      "Cancer",
+      "Liver disease"
+    ]
+  },
+  {
+    "trial_id": "T8",
+    "condition": "Type 2 Diabetes",
+    "inclusion": [
+      "Age between 20 and 50",
+      "HbA1c > 6.8"
+    ],
+    "exclusion": [
+      "Insulin therapy"
+    ]
+  },
+  {
+    "trial_id": "T9",
+    "condition": "Type 2 Diabetes",
+    "inclusion": [
+      "Age between 60 and 85",
+      "HbA1c > 7.2"
+    ],
+    "exclusion": [
+      "Kidney disease",
+      "Stroke history"
+    ]
+  },
+  {
+    "trial_id": "T10",
+    "condition": "Type 2 Diabetes",
+    "inclusion": [
+      "Age between 30 and 65",
+      "HbA1c > 7.0",
+      "BMI > 28"
+    ],
+    "exclusion": [
+      "Heart disease"
+    ]
+  }
+]

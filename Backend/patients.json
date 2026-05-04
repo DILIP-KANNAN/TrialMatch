@@ -1,0 +1,61 @@
+[
+  {"id": 1, "age": 52, "condition": "Type 2 Diabetes", "HbA1c": 8.2, "BMI": 29, "insulin_history": false, "conditions": []},
+  {"id": 2, "age": 45, "condition": "Type 2 Diabetes", "HbA1c": 7.5, "BMI": 32, "insulin_history": false, "conditions": ["hypertension"]},
+  {"id": 3, "age": 67, "condition": "Type 2 Diabetes", "HbA1c": 9.1, "BMI": 27, "insulin_history": true, "conditions": []},
+  {"id": 4, "age": 34, "condition": "Type 2 Diabetes", "HbA1c": 6.9, "BMI": 26, "insulin_history": false, "conditions": []},
+  {"id": 5, "age": 60, "condition": "Type 2 Diabetes", "HbA1c": 8.5, "BMI": 31, "insulin_history": false, "conditions": ["kidney disease"]},
+
+  {"id": 6, "age": 48, "HbA1c": 7.8, "BMI": 33, "insulin_history": false, "conditions": []},
+  {"id": 7, "age": 55, "HbA1c": 8.9, "BMI": 35, "insulin_history": true, "conditions": []},
+  {"id": 8, "age": 29, "HbA1c": 7.1, "BMI": 24, "insulin_history": false, "conditions": []},
+  {"id": 9, "age": 72, "HbA1c": 7.4, "BMI": 28, "insulin_history": false, "conditions": ["stroke history"]},
+  {"id": 10, "age": 38, "HbA1c": 6.7, "BMI": 27, "insulin_history": false, "conditions": []},
+
+  {"id": 11, "age": 50, "HbA1c": 7.9, "BMI": 30, "insulin_history": false, "conditions": []},
+  {"id": 12, "age": 42, "HbA1c": 8.3, "BMI": 31, "insulin_history": false, "conditions": []},
+  {"id": 13, "age": 65, "HbA1c": 9.0, "BMI": 29, "insulin_history": true, "conditions": ["heart disease"]},
+  {"id": 14, "age": 36, "HbA1c": 7.2, "BMI": 34, "insulin_history": false, "conditions": []},
+  {"id": 15, "age": 58, "HbA1c": 8.1, "BMI": 36, "insulin_history": false, "conditions": []},
+
+  {"id": 16, "age": 41, "HbA1c": 7.6, "BMI": 28, "insulin_history": false, "conditions": []},
+  {"id": 17, "age": 62, "HbA1c": 8.4, "BMI": 32, "insulin_history": false, "conditions": []},
+  {"id": 18, "age": 70, "HbA1c": 7.3, "BMI": 26, "insulin_history": false, "conditions": []},
+  {"id": 19, "age": 47, "HbA1c": 8.7, "BMI": 33, "insulin_history": false, "conditions": ["liver disease"]},
+  {"id": 20, "age": 53, "HbA1c": 9.2, "BMI": 37, "insulin_history": true, "conditions": []},
+
+  {"id": 21, "age": 39, "HbA1c": 7.4, "BMI": 31, "insulin_history": false, "conditions": []},
+  {"id": 22, "age": 44, "HbA1c": 8.0, "BMI": 29, "insulin_history": false, "conditions": []},
+  {"id": 23, "age": 68, "HbA1c": 7.8, "BMI": 30, "insulin_history": false, "conditions": []},
+  {"id": 24, "age": 33, "HbA1c": 6.8, "BMI": 25, "insulin_history": false, "conditions": []},
+  {"id": 25, "age": 59, "HbA1c": 8.6, "BMI": 34, "insulin_history": false, "conditions": []},
+
+  {"id": 26, "age": 46, "HbA1c": 7.7, "BMI": 30, "insulin_history": false, "conditions": []},
+  {"id": 27, "age": 51, "HbA1c": 8.8, "BMI": 33, "insulin_history": true, "conditions": []},
+  {"id": 28, "age": 63, "HbA1c": 7.9, "BMI": 29, "insulin_history": false, "conditions": ["kidney disease"]},
+  {"id": 29, "age": 40, "HbA1c": 7.0, "BMI": 28, "insulin_history": false, "conditions": []},
+  {"id": 30, "age": 54, "HbA1c": 8.3, "BMI": 35, "insulin_history": false, "conditions": []},
+
+  {"id": 31, "age": 37, "HbA1c": 7.5, "BMI": 27, "insulin_history": false, "conditions": []},
+  {"id": 32, "age": 49, "HbA1c": 8.2, "BMI": 32, "insulin_history": false, "conditions": []},
+  {"id": 33, "age": 61, "HbA1c": 9.1, "BMI": 36, "insulin_history": true, "conditions": []},
+  {"id": 34, "age": 28, "HbA1c": 6.6, "BMI": 24, "insulin_history": false, "conditions": []},
+  {"id": 35, "age": 66, "HbA1c": 7.8, "BMI": 30, "insulin_history": false, "conditions": []},
+
+  {"id": 36, "age": 43, "HbA1c": 7.3, "BMI": 29, "insulin_history": false, "conditions": []},
+  {"id": 37, "age": 57, "HbA1c": 8.5, "BMI": 34, "insulin_history": false, "conditions": ["heart disease"]},
+  {"id": 38, "age": 52, "HbA1c": 7.6, "BMI": 31, "insulin_history": false, "conditions": []},
+  {"id": 39, "age": 64, "HbA1c": 8.9, "BMI": 33, "insulin_history": true, "conditions": []},
+  {"id": 40, "age": 35, "HbA1c": 7.1, "BMI": 26, "insulin_history": false, "conditions": []},
+
+  {"id": 41, "age": 48, "HbA1c": 7.9, "BMI": 30, "insulin_history": false, "conditions": []},
+  {"id": 42, "age": 55, "HbA1c": 8.6, "BMI": 35, "insulin_history": false, "conditions": []},
+  {"id": 43, "age": 69, "HbA1c": 7.5, "BMI": 28, "insulin_history": false, "conditions": []},
+  {"id": 44, "age": 31, "HbA1c": 6.9, "BMI": 27, "insulin_history": false, "conditions": []},
+  {"id": 45, "age": 58, "HbA1c": 8.7, "BMI": 34, "insulin_history": false, "conditions": []},
+
+  {"id": 46, "age": 50, "HbA1c": 7.8, "BMI": 29, "insulin_history": false, "conditions": []},
+  {"id": 47, "age": 62, "HbA1c": 9.0, "BMI": 36, "insulin_history": true, "conditions": []},
+  {"id": 48, "age": 39, "HbA1c": 7.2, "BMI": 28, "insulin_history": false, "conditions": []},
+  {"id": 49, "age": 53, "HbA1c": 8.4, "BMI": 32, "insulin_history": false, "conditions": []},
+  {"id": 50, "age": 67, "HbA1c": 7.6, "BMI": 30, "insulin_history": false, "conditions": ["stroke history"]}
+]
