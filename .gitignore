@@ -51,3 +51,5 @@ Thumbs.db
 # Project Specific
 Backend/biobert_nli_finetuned/
 frontend/build/
+
+Architecture_Report.md

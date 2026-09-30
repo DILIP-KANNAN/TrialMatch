@@ -1,96 +1,117 @@
+import os
+import sys
+
+# Ensure backend root is in Python path and prevent torchvision import collision
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+sys.modules['torchvision'] = None
+
 from flask import Flask, request, jsonify
-import torch
-import re
-from transformers import BertTokenizer, BertForSequenceClassification
 from flask_cors import CORS
+import json
+
+from agent.orchestrator import MatchmakerOrchestrator
+from tools.biobert_tool import BioBERTTool
+from tools.numeric_tool import NumericTool
 
 app = Flask(__name__)
 CORS(app)
 
-print("Loading fine-tuned NLI model...")
-MODEL_PATH = "./biobert_nli_finetuned"
+print("[Backend] Initializing TrialMatch 2.0 Engine...")
+orchestrator = MatchmakerOrchestrator()
+cached_fleet_results = None
+
+# Pre-run or load data
 try:
-    tokenizer = BertTokenizer.from_pretrained(MODEL_PATH)
-    model = BertForSequenceClassification.from_pretrained(MODEL_PATH)
-    model.eval()
-    print("Model loaded successfully.")
+    patients, trials = orchestrator.load_fleet_data()
+    print(f"[Backend] Successfully loaded {len(patients)} patients and {len(trials)} trials.")
 except Exception as e:
-    print(f"Error loading model: {e}")
-    # Fallback to base model for safety if not found
-    tokenizer = BertTokenizer.from_pretrained("dmis-lab/biobert-base-cased-v1.1")
-    model = BertForSequenceClassification.from_pretrained("dmis-lab/biobert-base-cased-v1.1", num_labels=3)
-    model.eval()
+    print(f"[Backend] Error loading initial fleet data: {e}")
+    patients, trials = [], []
 
-def predict_nli(premise, hypothesis):
-    """
-    Returns True if the premise entails the hypothesis.
-    SNLI labels typically: 0=entailment, 1=neutral, 2=contradiction
-    """
-    inputs = tokenizer(premise, hypothesis, return_tensors="pt", truncation=True, max_length=128)
-    with torch.no_grad():
-        logits = model(**inputs).logits
-    
-    predicted_class_id = logits.argmax().item()
-    return predicted_class_id == 0 # Entailment
 
-def extract_patient_metrics(text):
-    """
-    Uses Regex to actively extract numerical metrics from unstructured clinical notes.
-    """
-    metrics = {}
-    
-    age_match = re.search(r'(\d+)(?:\s*|-)(?:year|yr|yo|age)', text, re.IGNORECASE)
-    if age_match:
-        metrics['age'] = float(age_match.group(1))
-        
-    hba1c_match = re.search(r'HbA1c\s*(?:of|is)?\s*(\d+\.?\d*)', text, re.IGNORECASE)
-    if hba1c_match:
-        metrics['hba1c'] = float(hba1c_match.group(1))
-        
-    bmi_match = re.search(r'BMI\s*(?:of|is)?\s*(\d+\.?\d*)', text, re.IGNORECASE)
-    if bmi_match:
-        metrics['bmi'] = float(bmi_match.group(1))
-        
-    return metrics
+@app.route('/api/fleet/status', methods=['GET'])
+def get_fleet_status():
+    """Returns current fleet matching cache status."""
+    global cached_fleet_results
+    return jsonify({
+        "status": "ready" if cached_fleet_results is not None else "idle",
+        "has_cached_results": cached_fleet_results is not None,
+        "total_patients": len(patients),
+        "total_trials": len(trials),
+        "summary": {
+            "high_matches": cached_fleet_results.get("high_match_count", 0) if cached_fleet_results else 0,
+            "needs_verification": cached_fleet_results.get("verification_needed_count", 0) if cached_fleet_results else 0,
+            "excluded": cached_fleet_results.get("excluded_count", 0) if cached_fleet_results else 0,
+            "total_evaluated_pairs": cached_fleet_results.get("total_evaluated_pairs", 0) if cached_fleet_results else 0
+        }
+    })
 
-def evaluate_math_criterion(criterion, patient_metrics):
-    """
-    If a criterion has math, evaluates it. Returns True/False if evaluating successfully,
-    returns None if it's not a math criterion (signaling to fallback to BioBERT).
-    """
-    criterion_lower = criterion.lower()
-    
-    target_metric = None
-    if 'age' in criterion_lower: target_metric = 'age'
-    elif 'hba1c' in criterion_lower: target_metric = 'hba1c'
-    elif 'bmi' in criterion_lower: target_metric = 'bmi'
-        
-    if not target_metric or target_metric not in patient_metrics:
-        return None
-        
-    val = patient_metrics[target_metric]
-    
-    # "between 40 and 65" or "30-60"
-    if 'between' in criterion_lower or '-' in criterion:
-        nums = [float(x) for x in re.findall(r'\d+\.?\d*', criterion)]
-        if len(nums) >= 2:
-            low, high = sorted(nums[:2])
-            return low <= val <= high
-            
-    # "> 7.0"
-    if '>' in criterion_lower or 'greater' in criterion_lower:
-        nums = [float(x) for x in re.findall(r'\d+\.?\d*', criterion)]
-        if nums: return val > nums[0]
-        
-    # "< 7.0"
-    if '<' in criterion_lower or 'less' in criterion_lower:
-        nums = [float(x) for x in re.findall(r'\d+\.?\d*', criterion)]
-        if nums: return val < nums[0]
-        
-    return None
 
+@app.route('/api/fleet/run', methods=['POST'])
+def run_fleet_match():
+    """Triggers the full Matchmaker Orchestrator across the patient and trial populations."""
+    global cached_fleet_results
+    try:
+        print("[Backend] Executing Matchmaker Orchestrator fleet run...")
+        cached_fleet_results = orchestrator.run_matchmaking_fleet()
+        return jsonify({
+            "success": True,
+            "message": "Fleet matchmaking completed successfully.",
+            "data": cached_fleet_results
+        })
+    except Exception as e:
+        print(f"[Backend] Error running fleet matchmaker: {e}")
+        return jsonify({"success": False, "error": str(e)}), 500
+
+
+@app.route('/api/fleet/results', methods=['GET'])
+def get_fleet_results():
+    """Returns the cached fleet matchmaking results (or runs on-demand if not yet computed)."""
+    global cached_fleet_results
+    if cached_fleet_results is None:
+        print("[Backend] No cached results found. Running initial fleet matchmaking...")
+        cached_fleet_results = orchestrator.run_matchmaking_fleet()
+    return jsonify(cached_fleet_results)
+
+
+@app.route('/api/fleet/trials', methods=['GET'])
+def get_trials():
+    """Returns all active clinical trial protocols with decomposed atomic criteria."""
+    return jsonify(trials)
+
+
+@app.route('/api/fleet/patients', methods=['GET'])
+def get_patients():
+    """Returns all hospital patient records with structured profiles."""
+    return jsonify(patients)
+
+
+@app.route('/api/fleet/matches/by-trial/<trial_id>', methods=['GET'])
+def get_matches_by_trial(trial_id):
+    """Returns candidates for a specific trial, ranked by score."""
+    global cached_fleet_results
+    if cached_fleet_results is None:
+        cached_fleet_results = orchestrator.run_matchmaking_fleet()
+    matches = cached_fleet_results.get("by_trial", {}).get(trial_id, [])
+    return jsonify({"trial_id": trial_id, "candidates": matches})
+
+
+@app.route('/api/fleet/matches/by-patient/<patient_id>', methods=['GET'])
+def get_matches_by_patient(patient_id):
+    """Returns trial opportunities for a specific patient, ranked by score."""
+    global cached_fleet_results
+    if cached_fleet_results is None:
+        cached_fleet_results = orchestrator.run_matchmaking_fleet()
+    matches = cached_fleet_results.get("by_patient", {}).get(patient_id, [])
+    return jsonify({"patient_id": patient_id, "trials": matches})
+
+
+# ==========================================
+# Legacy Single Pair Match Endpoint
+# ==========================================
 @app.route('/match', methods=['POST'])
-def match():
+def legacy_match():
+    """Legacy backward-compatible single match endpoint."""
     data = request.json
     if not data:
         return jsonify({"error": "No input data provided"}), 400
@@ -98,67 +119,59 @@ def match():
     patient_text = data.get("patient_text", "")
     inclusion_criteria = data.get("inclusion_criteria", [])
     exclusion_criteria = data.get("exclusion_criteria", [])
-    
+
+    biobert = BioBERTTool.get_instance()
     satisfied = []
     failed = []
-    
-    # Extract math metrics from unstructured text
-    patient_metrics = extract_patient_metrics(patient_text)
-    
-    # 1. Evaluate Inclusion Criteria
+
+    # Simple numeric regex
+    patient_metrics = {}
+    import re
+    age_match = re.search(r'(\d+)(?:\s*|-)(?:year|yr|yo|age)', patient_text, re.IGNORECASE)
+    if age_match: patient_metrics['age'] = float(age_match.group(1))
+    hba1c_match = re.search(r'HbA1c\s*(?:of|is)?\s*(\d+\.?\d*)', patient_text, re.IGNORECASE)
+    if hba1c_match: patient_metrics['hba1c'] = float(hba1c_match.group(1))
+    bmi_match = re.search(r'BMI\s*(?:of|is)?\s*(\d+\.?\d*)', patient_text, re.IGNORECASE)
+    if bmi_match: patient_metrics['bmi'] = float(bmi_match.group(1))
+
+    # Evaluate inclusion
     for criterion in inclusion_criteria:
-        # Try Hybrid Math routing first
-        math_result = evaluate_math_criterion(criterion, patient_metrics)
-        if math_result is not None:
-            if math_result:
-                satisfied.append(f"Patient meets numerical inclusion: {criterion}")
-            else:
-                failed.append(f"Patient fails numerical inclusion: {criterion}")
-            continue
-            
-        # Fallback to BioBERT NLI for semantics
-        if predict_nli(patient_text, criterion):
-            satisfied.append(f"Patient entails semantic inclusion: {criterion}")
+        nli_res = biobert.evaluate_pair(patient_text, criterion)
+        if nli_res["is_entailment"]:
+            satisfied.append(f"Entails: {criterion}")
         else:
-            failed.append(f"Patient lacks semantic inclusion: {criterion}")
-            
-    # 2. Evaluate Exclusion Criteria
+            failed.append(f"Fails: {criterion}")
+
+    # Evaluate exclusion
     for criterion in exclusion_criteria:
-        math_result = evaluate_math_criterion(criterion, patient_metrics)
-        if math_result is not None:
-            if math_result: # If they match an exclusion criteria numerically
-                failed.append(f"Patient violates numerical exclusion: {criterion}")
-            else:
-                satisfied.append(f"Patient clears numerical exclusion: {criterion}")
-            continue
-            
-        if predict_nli(patient_text, criterion):
-            failed.append(f"Patient violates semantic exclusion: {criterion}")
+        nli_res = biobert.evaluate_pair(patient_text, criterion)
+        if nli_res["is_contradiction"] or nli_res["predicted_label"] == "Neutral":
+            satisfied.append(f"Clears exclusion: {criterion}")
         else:
-            satisfied.append(f"Patient clears semantic exclusion: {criterion}")
-            
-    total_criteria = len(inclusion_criteria) + len(exclusion_criteria)
-    if total_criteria == 0:
-        final_score = 0.0
-    else:
-        final_score = len(satisfied) / total_criteria
-        
-    interpretation = "The patient is a strong match based on hybrid logical inference." if final_score > 0.6 else "The patient does not satisfy all required criteria."
-    
+            failed.append(f"Violates exclusion: {criterion}")
+
+    total = len(inclusion_criteria) + len(exclusion_criteria)
+    final_score = len(satisfied) / max(total, 1)
+
     return jsonify({
-        "rule_score": round(final_score, 2), 
+        "rule_score": round(final_score, 2),
         "bert_score": round(final_score, 2),
         "final_score": round(final_score, 2),
         "explanation": {
-            "summary": f"Matched {len(satisfied)} out of {total_criteria} criteria using a Hybrid Math + AI approach.",
+            "summary": f"Matched {len(satisfied)} out of {total} criteria.",
             "criteria_analysis": {
                 "satisfied_conditions": satisfied,
                 "failed_conditions": failed
             },
-            "semantic_analysis": "System dynamically routed numerical ranges to a Python Math Evaluator, while medical concepts and history were handled by the fine-tuned BioBERT NLI Engine.",
-            "interpretation": interpretation
+            "semantic_analysis": "Evaluated using fine-tuned BioBERT NLI engine.",
+            "interpretation": "Eligible" if final_score > 0.6 else "Not Eligible"
         }
     })
 
+
 if __name__ == '__main__':
-    app.run(port=5000, debug=True)
+    # Pre-cache fleet results on boot
+    print("[Backend] Pre-caching fleet matchmaking results...")
+    cached_fleet_results = orchestrator.run_matchmaking_fleet()
+    print("[Backend] Server ready on http://127.0.0.1:5000")
+    app.run(port=5000, debug=False)

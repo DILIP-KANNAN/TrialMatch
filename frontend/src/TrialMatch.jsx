@@ -1,583 +1,966 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
-// Sample data for demo
-const samplePatients = [
+// ==========================================
+// Fallback Datasets (In case backend is booting)
+// ==========================================
+const FALLBACK_TRIALS = [
   {
-    id: 1,
-    report_text: "Mr. Davis is a 45-year-old male presenting with Type 2 Diabetes. His recent labs show an HbA1c of 7.5. He has a BMI of 32. He has no history of insulin therapy. Past medical history is significant for Hypertension."
+    trial_id: "T01",
+    name: "DIAMOND-MET Study",
+    phase: "Phase III",
+    target_condition: "Type 2 Diabetes",
+    summary: "Evaluating novel dual-action GLP-1/GIP agonists in adult Type 2 Diabetes patients without insulin exposure.",
+    criteria: [
+      { id: "C01_1", clause: "inclusion", type: "numeric", field: "age", operator: "between", value: [40, 65], description: "Age between 40 and 65 years inclusive" },
+      { id: "C01_2", clause: "inclusion", type: "numeric", field: "HbA1c", operator: ">", value: 7.0, description: "Baseline HbA1c > 7.0%" },
+      { id: "C01_3", clause: "inclusion", type: "semantic", concept: "Patient has no history of prior insulin therapy", description: "No prior exposure to insulin therapy" },
+      { id: "C01_4", clause: "exclusion", type: "semantic", concept: "Patient has active kidney disease or severe renal impairment", description: "History of chronic kidney disease or renal failure" },
+      { id: "C01_5", clause: "exclusion", type: "semantic", concept: "Patient has heart failure or congestive cardiac failure", description: "Documented heart failure" }
+    ]
   },
   {
-    id: 2,
-    report_text: "Patient is a 52-year-old female with Type 2 Diabetes. Her HbA1c is currently 8.2 and her BMI is 28. She has not been on insulin therapy. She also suffers from chronic Kidney Disease."
+    trial_id: "T02",
+    name: "GLUCO-GUARD Cardiovascular Safety Trial",
+    phase: "Phase IV",
+    target_condition: "Type 2 Diabetes",
+    summary: "Assessing cardiovascular outcomes and renal preservation in overweight patients with elevated HbA1c.",
+    criteria: [
+      { id: "C02_1", clause: "inclusion", type: "numeric", field: "age", operator: "between", value: [30, 70], description: "Age between 30 and 70 years" },
+      { id: "C02_2", clause: "inclusion", type: "numeric", field: "BMI", operator: ">=", value: 27.0, description: "BMI >= 27.0 kg/m2 (overweight or obese)" },
+      { id: "C02_3", clause: "inclusion", type: "numeric", field: "HbA1c", operator: "between", value: [6.5, 9.5], description: "HbA1c between 6.5% and 9.5%" },
+      { id: "C02_4", clause: "exclusion", type: "semantic", concept: "Patient is pregnant or planning pregnancy", description: "Pregnancy or lactation" },
+      { id: "C02_5", clause: "exclusion", type: "semantic", concept: "Patient has liver disease, cirrhosis or acute hepatic injury", description: "Active liver disease" }
+    ]
+  },
+  {
+    trial_id: "T03",
+    name: "RENAL-SAVE Diabetic Nephropathy Trial",
+    phase: "Phase IIb",
+    target_condition: "Type 2 Diabetes",
+    summary: "Targeted renal protective therapy in patients with diabetic kidney involvement and controlled glycemic status.",
+    criteria: [
+      { id: "C03_1", clause: "inclusion", type: "numeric", field: "age", operator: "between", value: [45, 75], description: "Age between 45 and 75 years" },
+      { id: "C03_2", clause: "inclusion", type: "numeric", field: "HbA1c", operator: "<=", value: 9.0, description: "HbA1c <= 9.0%" },
+      { id: "C03_3", clause: "inclusion", type: "numeric", field: "eGFR", operator: "between", value: [30, 60], description: "Moderate renal impairment with eGFR between 30 and 60 mL/min/1.73m2" },
+      { id: "C03_4", clause: "exclusion", type: "semantic", concept: "Patient has end stage renal disease or is on dialysis", description: "End-stage renal disease (ESRD) or active hemodialysis" },
+      { id: "C03_5", clause: "exclusion", type: "semantic", concept: "Patient had a recent stroke or acute cerebrovascular accident", description: "Stroke within past 6 months" }
+    ]
+  },
+  {
+    trial_id: "T04",
+    name: "MET-CONTROL 2026 Intensive Monotherapy",
+    phase: "Phase III",
+    target_condition: "Type 2 Diabetes",
+    summary: "Evaluating once-weekly insulin sensitizer add-on for patients sub-optimally controlled on Metformin alone.",
+    criteria: [
+      { id: "C04_1", clause: "inclusion", type: "numeric", field: "age", operator: "between", value: [35, 65], description: "Age between 35 and 65 years" },
+      { id: "C04_2", clause: "inclusion", type: "numeric", field: "HbA1c", operator: "between", value: [7.0, 8.5], description: "HbA1c between 7.0% and 8.5%" },
+      { id: "C04_3", clause: "inclusion", type: "semantic", concept: "Patient is actively taking Metformin therapy", description: "Current stable Metformin therapy" },
+      { id: "C04_4", clause: "exclusion", type: "semantic", concept: "Patient has previous history of insulin therapy", description: "Prior insulin exposure" },
+      { id: "C04_5", clause: "exclusion", type: "numeric", field: "eGFR", operator: "<", value: 45, description: "eGFR < 45 mL/min/1.73m2" }
+    ]
+  },
+  {
+    trial_id: "T05",
+    name: "CARDIO-VASC Dual Protection Initiative",
+    phase: "Phase III",
+    target_condition: "Type 2 Diabetes",
+    summary: "Cardiovascular risk reduction in diabetic patients with comorbid hypertension.",
+    criteria: [
+      { id: "C05_1", clause: "inclusion", type: "numeric", field: "age", operator: "between", value: [45, 80], description: "Age between 45 and 80 years" },
+      { id: "C05_2", clause: "inclusion", type: "semantic", concept: "Patient has diagnosed hypertension or elevated blood pressure", description: "Documented hypertension" },
+      { id: "C05_3", clause: "inclusion", type: "numeric", field: "HbA1c", operator: ">=", value: 7.0, description: "HbA1c >= 7.0%" },
+      { id: "C05_4", clause: "exclusion", type: "semantic", concept: "Patient had acute myocardial infarction or cardiac arrest", description: "History of acute myocardial infarction" }
+    ]
   }
 ];
 
-const sampleTrials = [
-  {
-    trial_id: "T1",
-    name: "DIAMOND Study",
-    condition: "Type 2 Diabetes",
-    inclusion: ["Age between 40 and 65", "HbA1c > 7.0", "No insulin therapy"],
-    exclusion: ["Kidney disease", "Heart failure"]
-  },
-  {
-    trial_id: "T2",
-    name: "MetaControl Trial",
-    condition: "Type 2 Diabetes",
-    inclusion: ["Age 30-60", "HbA1c between 6.5-9", "BMI > 25"],
-    exclusion: ["Pregnancy", "Active infection"]
-  }
-];
-
-function TrialMatch() {
-  const [activeTab, setActiveTab] = useState("patients");
-  const [patients, setPatients] = useState(samplePatients);
-  const [trials, setTrials] = useState(sampleTrials);
-
-  const [patientForm, setPatientForm] = useState({
-    report_text: ""
-  });
-
-  const [trialForm, setTrialForm] = useState({
-    trial_id: "",
-    name: "",
-    condition: "Type 2 Diabetes",
-    inclusion: "",
-    exclusion: ""
-  });
-
-  const [selectedPatient, setSelectedPatient] = useState(null);
-  const [selectedTrial, setSelectedTrial] = useState(null);
-  const [matchResults, setMatchResults] = useState(null);
+export default function TrialMatch() {
+  const [activeTab, setActiveTab] = useState("trial-centric"); // 'trial-centric' | 'patient-centric' | 'patients' | 'trials'
+  const [fleetResults, setFleetResults] = useState(null);
+  const [patients, setPatients] = useState([]);
+  const [trials, setTrials] = useState(FALLBACK_TRIALS);
+  const [selectedTrialId, setSelectedTrialId] = useState("T01");
+  const [selectedPatientId, setSelectedPatientId] = useState("P001");
+  const [inspectedMatch, setInspectedMatch] = useState(null); // Match assessment object for Drawer
   const [isLoading, setIsLoading] = useState(false);
+  const [isConsoleOpen, setIsConsoleOpen] = useState(true);
+  const [tierFilter, setTierFilter] = useState("ALL"); // 'ALL' | 'HIGH' | 'NEEDS VERIFICATION' | 'NOT SUITABLE'
+  const [searchQuery, setSearchQuery] = useState("");
+  const [backendConnected, setBackendConnected] = useState(false);
 
-  // Add Patient
-  const handleAddPatient = () => {
-    if (!patientForm.report_text) {
-      alert("Please enter the patient's clinical notes");
-      return;
-    }
+  // Load Initial Fleet Results
+  useEffect(() => {
+    fetchFleetResults();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
-    const newPatient = {
-      id: Math.max(...patients.map(p => p.id), 0) + 1,
-      report_text: patientForm.report_text
-    };
-
-    setPatients([...patients, newPatient]);
-    setPatientForm({
-      report_text: ""
-    });
-  };
-
-  // Add Trial
-  const handleAddTrial = () => {
-    if (!trialForm.trial_id || !trialForm.name || !trialForm.inclusion || !trialForm.exclusion) {
-      alert("Please fill in all required fields");
-      return;
-    }
-
-    const newTrial = {
-      trial_id: trialForm.trial_id,
-      name: trialForm.name,
-      condition: trialForm.condition,
-      inclusion: trialForm.inclusion.split("\n").filter(i => i.trim()),
-      exclusion: trialForm.exclusion.split("\n").filter(e => e.trim())
-    };
-
-    setTrials([...trials, newTrial]);
-    setTrialForm({
-      trial_id: "",
-      name: "",
-      condition: "Type 2 Diabetes",
-      inclusion: "",
-      exclusion: ""
-    });
-  };
-
-  // Backend matching function
-  const handleMatch = async () => {
-    if (!selectedPatient || !selectedTrial) {
-      alert("Please select both a patient and a trial");
-      return;
-    }
-
+  const fetchFleetResults = async () => {
     setIsLoading(true);
-
-    const patientText = selectedPatient.report_text;
-
     try {
-      const response = await fetch("http://127.0.0.1:5000/match", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ 
-          patient_text: patientText, 
-          inclusion_criteria: selectedTrial.inclusion,
-          exclusion_criteria: selectedTrial.exclusion,
-          trial_name: selectedTrial.name
-        })
-      });
+      const res = await fetch("http://127.0.0.1:5000/api/fleet/results");
+      if (!res.ok) throw new Error("Backend response error");
+      const data = await res.json();
+      setFleetResults(data);
+      setBackendConnected(true);
 
-      if (!response.ok) {
-        throw new Error("Failed to match. Backend returned an error.");
+      // Also fetch full patient records if available
+      const ptsRes = await fetch("http://127.0.0.1:5000/api/fleet/patients");
+      if (ptsRes.ok) {
+        const ptsData = await ptsRes.json();
+        setPatients(ptsData);
       }
 
-      const data = await response.json();
-
-      setMatchResults({
-        patient: selectedPatient,
-        trial: selectedTrial,
-        eligible: data.final_score > 0.6,
-        score: Math.round(data.final_score * 100),
-        satisfiedConditions: data.explanation.criteria_analysis.satisfied_conditions,
-        failedConditions: data.explanation.criteria_analysis.failed_conditions,
-        semanticAnalysis: data.explanation.semantic_analysis,
-        interpretation: data.explanation.interpretation,
-        bertScore: data.bert_score,
-        ruleScore: data.rule_score
-      });
-    } catch (error) {
-      console.error(error);
-      alert("Error matching patient and trial: " + error.message);
+      // Also fetch full trials if available
+      const trsRes = await fetch("http://127.0.0.1:5000/api/fleet/trials");
+      if (trsRes.ok) {
+        const trsData = await trsRes.json();
+        setTrials(trsData);
+      }
+    } catch (err) {
+      console.warn("Backend not reached or booting up, initializing local simulation:", err);
+      setBackendConnected(false);
+      // Auto-generate realistic demo state if backend is still initializing
+      generateDemoFleet();
     } finally {
       setIsLoading(false);
     }
   };
 
+  const handleRunFleet = async () => {
+    setIsLoading(true);
+    try {
+      const res = await fetch("http://127.0.0.1:5000/api/fleet/run", { method: "POST" });
+      if (!res.ok) throw new Error("Failed to run fleet");
+      const json = await res.json();
+      setFleetResults(json.data);
+      setBackendConnected(true);
+    } catch (err) {
+      console.warn("Run fleet failed, refreshing local state:", err);
+      generateDemoFleet();
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  const generateDemoFleet = () => {
+    // Generates a mock fleet result if offline
+    const demoCandidates = [
+      {
+        match_id: "M_P001_T01",
+        patient_id: "P001",
+        patient_name: "Evelyn Harper",
+        trial_id: "T01",
+        trial_name: "DIAMOND-MET Study",
+        tier: "HIGH",
+        match_score: 100.0,
+        summary: "High-confidence match! Patient satisfies all 5 inclusion and exclusion criteria with verified evidence.",
+        counts: { total: 5, passed: 5, failed: 0, unknown: 0 },
+        action_items: [],
+        critical_violations: [],
+        criteria_evaluations: [
+          { criterion_id: "C01_1", rule_description: "Age between 40 and 65", clause: "inclusion", status: "PASS", evidence_quote: "Patient age is 52 (satisfies between 40 and 65).", tool_used: "numeric_tool", confidence: 1.0 },
+          { criterion_id: "C01_2", rule_description: "Baseline HbA1c > 7.0%", clause: "inclusion", status: "PASS", evidence_quote: "Patient HbA1c is 8.2% (> 7.0%).", tool_used: "numeric_tool", confidence: 1.0 },
+          { criterion_id: "C01_3", rule_description: "No prior insulin therapy", clause: "inclusion", status: "PASS", evidence_quote: "Patient has been maintained on oral agents and has never required insulin therapy.", tool_used: "terminology_tool", confidence: 0.95 },
+          { criterion_id: "C01_4", rule_description: "Exclusion: Kidney disease", clause: "exclusion", status: "PASS", evidence_quote: "Renal function is preserved with eGFR 84.0 mL/min/1.73m2.", tool_used: "terminology_tool", confidence: 1.0 },
+          { criterion_id: "C01_5", rule_description: "Exclusion: Heart failure", clause: "exclusion", status: "PASS", evidence_quote: "No prior history of myocardial infarction or congestive heart failure.", tool_used: "biobert_tool", confidence: 0.98 }
+        ]
+      },
+      {
+        match_id: "M_P017_T01",
+        patient_id: "P017",
+        patient_name: "Christopher Lee",
+        trial_id: "T01",
+        trial_name: "DIAMOND-MET Study",
+        tier: "NEEDS VERIFICATION",
+        match_score: 83.0,
+        summary: "Strong candidate meeting verified criteria, but requires laboratory verification for 1 unrecorded metric.",
+        counts: { total: 5, passed: 4, failed: 0, unknown: 1 },
+        action_items: ["Obtain laboratory test or documentation for eGFR."],
+        critical_violations: [],
+        criteria_evaluations: [
+          { criterion_id: "C01_1", rule_description: "Age between 40 and 65", clause: "inclusion", status: "PASS", evidence_quote: "Patient age is 62.", tool_used: "numeric_tool", confidence: 1.0 },
+          { criterion_id: "C01_2", rule_description: "Baseline HbA1c > 7.0%", clause: "inclusion", status: "PASS", evidence_quote: "HbA1c 8.4%.", tool_used: "numeric_tool", confidence: 1.0 },
+          { criterion_id: "C01_3", rule_description: "No prior insulin therapy", clause: "inclusion", status: "PASS", evidence_quote: "No insulin history recorded.", tool_used: "terminology_tool", confidence: 0.95 },
+          { criterion_id: "C01_4", rule_description: "Exclusion: Kidney disease", clause: "exclusion", status: "UNKNOWN", evidence_quote: "Recent renal function and eGFR labs are not on file.", tool_used: "auditor_gap_detector", confidence: 0.0, action_required: "Obtain laboratory test for eGFR." },
+          { criterion_id: "C01_5", rule_description: "Exclusion: Heart failure", clause: "exclusion", status: "PASS", evidence_quote: "No history of heart failure.", tool_used: "biobert_tool", confidence: 0.94 }
+        ]
+      },
+      {
+        match_id: "M_P003_T01",
+        patient_id: "P003",
+        patient_name: "Arthur Pendelton",
+        trial_id: "T01",
+        trial_name: "DIAMOND-MET Study",
+        tier: "NOT SUITABLE",
+        match_score: 25.0,
+        summary: "Candidate excluded due to 1 unmet/violated criterion(a). Primary reason: Age exceeds 65.",
+        counts: { total: 5, passed: 3, failed: 2, unknown: 0 },
+        action_items: [],
+        critical_violations: ["Violated INCLUSION criterion: 'Age between 40 and 65'"],
+        criteria_evaluations: [
+          { criterion_id: "C01_1", rule_description: "Age between 40 and 65", clause: "inclusion", status: "FAIL", evidence_quote: "Patient age is 68 (fails between 40 and 65).", tool_used: "numeric_tool", confidence: 1.0 },
+          { criterion_id: "C01_2", rule_description: "Baseline HbA1c > 7.0%", clause: "inclusion", status: "PASS", evidence_quote: "HbA1c 9.1%.", tool_used: "numeric_tool", confidence: 1.0 },
+          { criterion_id: "C01_3", rule_description: "No prior insulin therapy", clause: "inclusion", status: "FAIL", evidence_quote: "Patient is managed on basal insulin (Lantus).", tool_used: "terminology_tool", confidence: 1.0 }
+        ]
+      }
+    ];
+
+    setFleetResults({
+      total_patients: 50,
+      total_trials: 10,
+      total_evaluated_pairs: 220,
+      high_match_count: 164,
+      verification_needed_count: 25,
+      excluded_count: 31,
+      by_trial: { T01: demoCandidates },
+      by_patient: { P001: [demoCandidates[0]] },
+      execution_logs: [
+        "[Matchmaker] Initialized fleet run with 50 patient records and 10 active trials.",
+        "[Retrieval Tool] Pruned search space: 500 theoretical pairs -> 220 candidate pairs.",
+        "[BioBERT Tool] Semantic evaluation active on fine-tuned weights (biobert_nli_finetuned).",
+        "[Clinical Auditor] Completed tri-state audit: 164 HIGH, 25 NEEDS VERIFICATION, 31 EXCLUDED."
+      ]
+    });
+  };
+
+  const selectedTrial = trials.find(t => t.trial_id === selectedTrialId) || trials[0];
+  const candidatesForTrial = fleetResults?.by_trial?.[selectedTrialId] || [];
+
+  const filteredCandidates = candidatesForTrial.filter(c => {
+    const matchesTier = tierFilter === "ALL" || c.tier === tierFilter;
+    const matchesSearch = searchQuery === "" ||
+      c.patient_id.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      c.patient_name.toLowerCase().includes(searchQuery.toLowerCase());
+    return matchesTier && matchesSearch;
+  });
+
+  const patientOpportunities = fleetResults?.by_patient?.[selectedPatientId] || [];
+
   return (
-    <div className="min-h-screen bg-gray-50 flex flex-col">
-      {/* HEADER */}
-      <header className="bg-gradient-to-r from-teal-700 to-teal-600 text-white shadow-lg sticky top-0 z-100">
-        <div className="max-w-7xl mx-auto px-6 py-8 flex justify-between items-center">
-          <div>
-            <h1 className="text-4xl font-bold tracking-tight">TrialMatch</h1>
-            <p className="text-teal-100 mt-1 text-sm font-light">Smart Clinical Trial Matching</p>
+    <div className="min-h-screen bg-slate-950 text-slate-100 flex flex-col font-sans selection:bg-teal-500 selection:text-white">
+      {/* ==========================================
+          HEADER & COMMAND BAR
+      ========================================== */}
+      <header className="border-b border-slate-800 bg-slate-900/90 backdrop-blur sticky top-0 z-50">
+        <div className="max-w-7xl mx-auto px-6 py-4 flex flex-wrap items-center justify-between gap-4">
+          <div className="flex items-center gap-4">
+            <div className="w-11 h-11 rounded-xl bg-gradient-to-tr from-teal-500 to-emerald-400 flex items-center justify-center shadow-lg shadow-teal-500/20 text-slate-950 font-black text-xl">
+              ⚡
+            </div>
+            <div>
+              <div className="flex items-center gap-2">
+                <h1 className="text-2xl font-extrabold tracking-tight bg-gradient-to-r from-white via-slate-200 to-slate-400 bg-clip-text text-transparent">
+                  TrialMatch <span className="text-teal-400 font-mono text-sm px-2 py-0.5 rounded border border-teal-500/30 bg-teal-500/10">v2.0 AGENTIC</span>
+                </h1>
+                <span className="flex h-2.5 w-2.5 relative">
+                  <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+                  <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-emerald-500"></span>
+                </span>
+              </div>
+              <p className="text-xs text-slate-400">Autonomous Population-Scale Clinical Trial Matchmaker & Auditor</p>
+            </div>
           </div>
-          <div className="w-16 h-16 bg-white bg-opacity-20 rounded-lg flex items-center justify-center">
-            <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <circle cx="12" cy="12" r="10" strokeWidth="2" />
-              <path d="M12 6v6l4 2" strokeWidth="2" />
-            </svg>
+
+          <div className="flex items-center gap-3">
+            <div className="flex items-center gap-2 px-3 py-1.5 rounded-lg bg-slate-800/80 border border-slate-700/60 text-xs">
+              <span className={`w-2 h-2 rounded-full ${backendConnected ? "bg-emerald-400" : "bg-amber-400"}`}></span>
+              <span className="text-slate-300 font-mono">
+                {backendConnected ? "Backend Connected (CUDA/CPU)" : "Local Simulation Mode"}
+              </span>
+            </div>
+
+            <button
+              onClick={handleRunFleet}
+              disabled={isLoading}
+              className={`flex items-center gap-2 px-4 py-2 rounded-lg font-semibold text-sm transition-all duration-200 shadow-md ${
+                isLoading
+                  ? "bg-slate-700 text-slate-400 cursor-not-allowed"
+                  : "bg-gradient-to-r from-teal-500 to-emerald-600 hover:from-teal-400 hover:to-emerald-500 text-slate-950 shadow-teal-500/20 active:scale-95"
+              }`}
+            >
+              {isLoading ? (
+                <>
+                  <svg className="animate-spin h-4 w-4" viewBox="0 0 24 24">
+                    <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" fill="none" />
+                    <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v8z" />
+                  </svg>
+                  <span>Agent Running...</span>
+                </>
+              ) : (
+                <>
+                  <span>🚀</span>
+                  <span>Run Matchmaker Fleet</span>
+                </>
+              )}
+            </button>
           </div>
+        </div>
+
+        {/* NAVIGATION TABS */}
+        <div className="max-w-7xl mx-auto px-6 flex gap-1 border-t border-slate-800/60">
+          {[
+            { id: "trial-centric", label: "Trial-Centric View", icon: "🔬" },
+            { id: "patient-centric", label: "Patient-Centric View", icon: "👤" },
+            { id: "patients", label: `Patient Cohort (${fleetResults?.total_patients || 50})`, icon: "👥" },
+            { id: "trials", label: `Active Protocols (${trials.length})`, icon: "📋" }
+          ].map(tab => (
+            <button
+              key={tab.id}
+              onClick={() => setActiveTab(tab.id)}
+              className={`py-3 px-4 font-medium text-xs md:text-sm flex items-center gap-2 border-b-2 transition-all duration-150 ${
+                activeTab === tab.id
+                  ? "border-teal-400 text-teal-400 bg-teal-500/5 font-semibold"
+                  : "border-transparent text-slate-400 hover:text-slate-200 hover:bg-slate-800/30"
+              }`}
+            >
+              <span>{tab.icon}</span>
+              {tab.label}
+            </button>
+          ))}
         </div>
       </header>
 
-      {/* NAVIGATION */}
-      <nav className="bg-white border-b border-gray-200 sticky top-20 z-50 shadow-sm">
-        <div className="max-w-7xl mx-auto px-6 flex gap-8">
-          <button
-            onClick={() => setActiveTab("patients")}
-            className={`py-4 px-1 border-b-4 font-medium text-sm transition-colors ${
-              activeTab === "patients"
-                ? "border-teal-600 text-teal-600"
-                : "border-transparent text-gray-600 hover:text-gray-900 hover:border-gray-300"
-            }`}
-          >
-            <span className="mr-2">👥</span>Patients
-          </button>
-          <button
-            onClick={() => setActiveTab("trials")}
-            className={`py-4 px-1 border-b-4 font-medium text-sm transition-colors ${
-              activeTab === "trials"
-                ? "border-teal-600 text-teal-600"
-                : "border-transparent text-gray-600 hover:text-gray-900 hover:border-gray-300"
-            }`}
-          >
-            <span className="mr-2">🔬</span>Clinical Trials
-          </button>
-          <button
-            onClick={() => setActiveTab("match")}
-            className={`py-4 px-1 border-b-4 font-medium text-sm transition-colors ${
-              activeTab === "match"
-                ? "border-teal-600 text-teal-600"
-                : "border-transparent text-gray-600 hover:text-gray-900 hover:border-gray-300"
-            }`}
-          >
-            <span className="mr-2">⚡</span>Match Patients
-          </button>
-        </div>
-      </nav>
-
-      {/* MAIN CONTENT */}
-      <main className="flex-1 max-w-7xl w-full mx-auto px-6 py-8">
-        {/* PATIENTS TAB */}
-        {activeTab === "patients" && (
-          <div className="space-y-6 animate-fadeIn">
-            <div>
-              <h2 className="text-3xl font-bold text-gray-900">Patient Registry</h2>
-              <p className="text-gray-600 mt-2">Add and manage patient information for trial matching</p>
-            </div>
-
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-              {/* Patient Form */}
-              <div className="bg-white rounded-xl shadow border border-gray-200 p-8 flex flex-col h-full">
-                <h3 className="text-xl font-semibold text-gray-900 mb-6">Add New Patient</h3>
-                <div className="space-y-5 flex-1 flex flex-col">
-                  <div className="flex-1 flex flex-col">
-                    <label className="block text-xs font-semibold text-gray-700 uppercase tracking-wider mb-2">Clinical Notes / Report *</label>
-                    <textarea
-                      placeholder="Paste the unstructured patient report or clinical notes here..."
-                      value={patientForm.report_text}
-                      onChange={(e) => setPatientForm({ report_text: e.target.value })}
-                      className="w-full flex-1 min-h-[250px] px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-teal-500 focus:border-transparent transition resize-none"
-                    />
-                  </div>
-
-                  <button
-                    onClick={handleAddPatient}
-                    className="w-full bg-gradient-to-r from-teal-600 to-teal-500 hover:from-teal-700 hover:to-teal-600 text-white font-semibold py-3 rounded-lg transition transform hover:-translate-y-0.5 active:translate-y-0 shadow-md mt-auto"
-                  >
-                    + Add Patient
-                  </button>
-                </div>
-              </div>
-
-              {/* Patients List */}
-              <div className="bg-white rounded-xl shadow border border-gray-200 p-8">
-                <h3 className="text-xl font-semibold text-gray-900 mb-6">Patient List ({patients.length})</h3>
-                <div className="space-y-4 max-h-96 overflow-y-auto pr-2">
-                  {patients.map((patient) => (
-                    <div
-                      key={patient.id}
-                      onClick={() => setSelectedPatient(patient)}
-                      className={`p-4 rounded-lg border-2 cursor-pointer transition ${
-                        selectedPatient?.id === patient.id
-                          ? "border-teal-600 bg-teal-50"
-                          : "border-gray-200 hover:border-teal-400 hover:shadow"
-                      }`}
-                    >
-                      <div className="flex items-center justify-between mb-3">
-                        <span className="text-sm font-bold text-teal-600">ID #{patient.id}</span>
-                        <span className="text-xs font-semibold bg-gray-100 text-gray-700 px-3 py-1 rounded-full">
-                          Unstructured
-                        </span>
-                      </div>
-                      <p className="text-sm text-gray-700 line-clamp-3">
-                        {patient.report_text}
-                      </p>
-                    </div>
-                  ))}
-                </div>
-              </div>
+      {/* ==========================================
+          GLOBAL FLEET KPI METRIC RIBBON
+      ========================================== */}
+      <section className="bg-slate-900 border-b border-slate-800/80 px-6 py-4">
+        <div className="max-w-7xl mx-auto grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3">
+          <div className="bg-slate-950/60 border border-slate-800 rounded-xl p-3 flex flex-col justify-between">
+            <span className="text-[11px] font-bold uppercase tracking-wider text-slate-400">Active Trials</span>
+            <div className="flex items-baseline gap-2 mt-1">
+              <span className="text-2xl font-black text-white font-mono">{fleetResults?.total_trials || trials.length}</span>
+              <span className="text-xs text-slate-500 font-medium">Protocols</span>
             </div>
           </div>
-        )}
 
-        {/* TRIALS TAB */}
-        {activeTab === "trials" && (
-          <div className="space-y-6 animate-fadeIn">
-            <div>
-              <h2 className="text-3xl font-bold text-gray-900">Clinical Trials</h2>
-              <p className="text-gray-600 mt-2">Manage trial criteria and requirements</p>
+          <div className="bg-slate-950/60 border border-slate-800 rounded-xl p-3 flex flex-col justify-between">
+            <span className="text-[11px] font-bold uppercase tracking-wider text-slate-400">Cohort Size</span>
+            <div className="flex items-baseline gap-2 mt-1">
+              <span className="text-2xl font-black text-teal-400 font-mono">{fleetResults?.total_patients || 50}</span>
+              <span className="text-xs text-slate-500 font-medium">Patients</span>
             </div>
+          </div>
 
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-              {/* Trial Form */}
-              <div className="bg-white rounded-xl shadow border border-gray-200 p-8">
-                <h3 className="text-xl font-semibold text-gray-900 mb-6">Add New Trial</h3>
-                <div className="space-y-5">
-                  <div>
-                    <label className="block text-xs font-semibold text-gray-700 uppercase tracking-wider mb-2">Trial ID *</label>
-                    <input
-                      type="text"
-                      placeholder="e.g., T1"
-                      value={trialForm.trial_id}
-                      onChange={(e) => setTrialForm({ ...trialForm, trial_id: e.target.value })}
-                      className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-teal-500 focus:border-transparent transition"
-                    />
-                  </div>
+          <div className="bg-slate-950/60 border border-slate-800 rounded-xl p-3 flex flex-col justify-between">
+            <span className="text-[11px] font-bold uppercase tracking-wider text-slate-400">Assessed Pairs</span>
+            <div className="flex items-baseline gap-2 mt-1">
+              <span className="text-2xl font-black text-indigo-400 font-mono">{fleetResults?.total_evaluated_pairs || 220}</span>
+              <span className="text-xs text-slate-500 font-medium">Pruned 56%</span>
+            </div>
+          </div>
 
-                  <div>
-                    <label className="block text-xs font-semibold text-gray-700 uppercase tracking-wider mb-2">Trial Name *</label>
-                    <input
-                      type="text"
-                      placeholder="e.g., DIAMOND Study"
-                      value={trialForm.name}
-                      onChange={(e) => setTrialForm({ ...trialForm, name: e.target.value })}
-                      className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-teal-500 focus:border-transparent transition"
-                    />
-                  </div>
+          <div className="bg-slate-950/60 border border-emerald-900/40 bg-emerald-950/10 rounded-xl p-3 flex flex-col justify-between">
+            <span className="text-[11px] font-bold uppercase tracking-wider text-emerald-400">High Match</span>
+            <div className="flex items-baseline gap-2 mt-1">
+              <span className="text-2xl font-black text-emerald-400 font-mono">{fleetResults?.high_match_count || 164}</span>
+              <span className="text-xs text-emerald-600 font-medium">Verified 🟢</span>
+            </div>
+          </div>
 
-                  <div>
-                    <label className="block text-xs font-semibold text-gray-700 uppercase tracking-wider mb-2">Condition</label>
-                    <select
-                      value={trialForm.condition}
-                      onChange={(e) => setTrialForm({ ...trialForm, condition: e.target.value })}
-                      className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-teal-500 focus:border-transparent transition"
-                    >
-                      <option>Type 2 Diabetes</option>
-                      <option>Type 1 Diabetes</option>
-                      <option>Hypertension</option>
-                    </select>
-                  </div>
+          <div className="bg-slate-950/60 border border-amber-900/40 bg-amber-950/10 rounded-xl p-3 flex flex-col justify-between">
+            <span className="text-[11px] font-bold uppercase tracking-wider text-amber-400">Needs Verif.</span>
+            <div className="flex items-baseline gap-2 mt-1">
+              <span className="text-2xl font-black text-amber-400 font-mono">{fleetResults?.verification_needed_count || 25}</span>
+              <span className="text-xs text-amber-600 font-medium">Lab Gaps 🟡</span>
+            </div>
+          </div>
 
-                  <div>
-                    <label className="block text-xs font-semibold text-gray-700 uppercase tracking-wider mb-2">Inclusion Criteria *</label>
-                    <textarea
-                      placeholder="One criterion per line"
-                      value={trialForm.inclusion}
-                      onChange={(e) => setTrialForm({ ...trialForm, inclusion: e.target.value })}
-                      className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-teal-500 focus:border-transparent transition resize-vertical"
-                      rows="4"
-                    />
-                  </div>
+          <div className="bg-slate-950/60 border border-rose-900/40 bg-rose-950/10 rounded-xl p-3 flex flex-col justify-between">
+            <span className="text-[11px] font-bold uppercase tracking-wider text-rose-400">Excluded</span>
+            <div className="flex items-baseline gap-2 mt-1">
+              <span className="text-2xl font-black text-rose-400 font-mono">{fleetResults?.excluded_count || 31}</span>
+              <span className="text-xs text-rose-600 font-medium">Contraindic. 🔴</span>
+            </div>
+          </div>
+        </div>
+      </section>
 
-                  <div>
-                    <label className="block text-xs font-semibold text-gray-700 uppercase tracking-wider mb-2">Exclusion Criteria *</label>
-                    <textarea
-                      placeholder="One criterion per line"
-                      value={trialForm.exclusion}
-                      onChange={(e) => setTrialForm({ ...trialForm, exclusion: e.target.value })}
-                      className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-teal-500 focus:border-transparent transition resize-vertical"
-                      rows="4"
-                    />
-                  </div>
+      {/* ==========================================
+          LIVE MATCHMAKER THOUGHT CONSOLE
+      ========================================== */}
+      <section className="bg-slate-900/40 border-b border-slate-800/80 px-6 py-2">
+        <div className="max-w-7xl mx-auto">
+          <div
+            onClick={() => setIsConsoleOpen(!isConsoleOpen)}
+            className="flex items-center justify-between cursor-pointer py-1.5 text-xs text-slate-400 hover:text-slate-200"
+          >
+            <div className="flex items-center gap-2 font-mono">
+              <span className="text-teal-400 font-bold">[MATCHMAKER AGENT LOGS]</span>
+              <span>{fleetResults?.execution_logs?.length || 4} steps recorded</span>
+            </div>
+            <span className="text-[11px] font-mono text-slate-500">{isConsoleOpen ? "▲ Hide Console" : "▼ Expand Console"}</span>
+          </div>
 
-                  <button
-                    onClick={handleAddTrial}
-                    className="w-full bg-gradient-to-r from-teal-600 to-teal-500 hover:from-teal-700 hover:to-teal-600 text-white font-semibold py-3 rounded-lg transition transform hover:-translate-y-0.5 active:translate-y-0 shadow-md"
-                  >
-                    + Add Trial
-                  </button>
+          {isConsoleOpen && (
+            <div className="mt-1 mb-2 p-3 bg-slate-950 rounded-lg border border-slate-800 font-mono text-xs text-slate-300 max-h-36 overflow-y-auto space-y-1 shadow-inner">
+              {(fleetResults?.execution_logs || []).map((log, idx) => (
+                <div key={idx} className="flex gap-2">
+                  <span className="text-slate-600 select-none">{String(idx + 1).padStart(2, "0")}.</span>
+                  <span className={log.includes("Complete") ? "text-emerald-400 font-bold" : (log.includes("Stage") ? "text-teal-300" : "text-slate-300")}>
+                    {log}
+                  </span>
                 </div>
+              ))}
+            </div>
+          )}
+        </div>
+      </section>
+
+      {/* ==========================================
+          MAIN OPERATIONAL BODY
+      ========================================== */}
+      <main className="flex-1 max-w-7xl w-full mx-auto px-6 py-6">
+
+        {/* ----------------------------------------------------
+            TAB 1: TRIAL-CENTRIC VIEW
+        ---------------------------------------------------- */}
+        {activeTab === "trial-centric" && (
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
+            {/* Left: Trial Selector Sidebar */}
+            <div className="lg:col-span-4 space-y-3">
+              <div className="flex items-center justify-between mb-1">
+                <h3 className="text-xs font-bold uppercase tracking-wider text-slate-400">Select Active Protocol</h3>
+                <span className="text-xs text-slate-500 font-mono">{trials.length} available</span>
               </div>
 
-              {/* Trials List */}
-              <div className="bg-white rounded-xl shadow border border-gray-200 p-8">
-                <h3 className="text-xl font-semibold text-gray-900 mb-6">Trial List ({trials.length})</h3>
-                <div className="space-y-4 max-h-96 overflow-y-auto pr-2">
-                  {trials.map((trial) => (
+              <div className="space-y-2 max-h-[750px] overflow-y-auto pr-1">
+                {trials.map(trial => {
+                  const isSelected = trial.trial_id === selectedTrialId;
+                  const cands = fleetResults?.by_trial?.[trial.trial_id] || [];
+                  const highCount = cands.filter(c => c.tier === "HIGH").length;
+                  const verifCount = cands.filter(c => c.tier === "NEEDS VERIFICATION").length;
+
+                  return (
                     <div
                       key={trial.trial_id}
-                      onClick={() => setSelectedTrial(trial)}
-                      className={`p-4 rounded-lg border-2 cursor-pointer transition ${
-                        selectedTrial?.trial_id === trial.trial_id
-                          ? "border-teal-600 bg-teal-50"
-                          : "border-gray-200 hover:border-teal-400 hover:shadow"
+                      onClick={() => setSelectedTrialId(trial.trial_id)}
+                      className={`p-3.5 rounded-xl border cursor-pointer transition-all ${
+                        isSelected
+                          ? "bg-slate-900 border-teal-500/70 shadow-lg shadow-teal-500/5 ring-1 ring-teal-500/20"
+                          : "bg-slate-900/40 border-slate-800 hover:border-slate-700 hover:bg-slate-900/80"
                       }`}
                     >
-                      <div className="flex items-start justify-between mb-2">
-                        <h4 className="font-semibold text-gray-900">{trial.name}</h4>
-                        <span className="text-xs font-bold bg-teal-600 text-white px-2 py-1 rounded">
-                          {trial.trial_id}
-                        </span>
+                      <div className="flex items-start justify-between gap-2">
+                        <div>
+                          <div className="flex items-center gap-2">
+                            <span className="font-mono text-xs font-bold px-1.5 py-0.5 rounded bg-slate-800 text-teal-400 border border-slate-700">
+                              {trial.trial_id}
+                            </span>
+                            <span className="text-xs text-slate-400 font-semibold">{trial.phase}</span>
+                          </div>
+                          <h4 className="font-semibold text-slate-100 text-sm mt-1">{trial.name}</h4>
+                        </div>
                       </div>
-                      <div className="grid grid-cols-2 gap-4 text-sm">
-                        <div>
-                          <p className="font-semibold text-gray-700 mb-1">✓ Inclusion ({trial.inclusion.length})</p>
-                          <ul className="text-xs text-gray-600 space-y-0.5">
-                            {trial.inclusion.slice(0, 2).map((c, i) => (
-                              <li key={i}>• {c}</li>
-                            ))}
-                            {trial.inclusion.length > 2 && (
-                              <li className="text-teal-600 font-semibold">+{trial.inclusion.length - 2} more</li>
-                            )}
-                          </ul>
-                        </div>
-                        <div>
-                          <p className="font-semibold text-gray-700 mb-1">✗ Exclusion ({trial.exclusion.length})</p>
-                          <ul className="text-xs text-gray-600 space-y-0.5">
-                            {trial.exclusion.slice(0, 2).map((c, i) => (
-                              <li key={i}>• {c}</li>
-                            ))}
-                            {trial.exclusion.length > 2 && (
-                              <li className="text-teal-600 font-semibold">+{trial.exclusion.length - 2} more</li>
-                            )}
-                          </ul>
-                        </div>
+
+                      <p className="text-xs text-slate-400 mt-1 line-clamp-1">{trial.summary}</p>
+
+                      <div className="flex items-center gap-3 mt-3 pt-2 border-t border-slate-800/80 text-[11px] font-mono">
+                        <span className="text-emerald-400 font-semibold">{highCount} High</span>
+                        <span className="text-amber-400 font-semibold">{verifCount} Verif.</span>
+                        <span className="text-slate-500 ml-auto">{trial.criteria?.length || 5} Criteria</span>
                       </div>
                     </div>
-                  ))}
+                  );
+                })}
+              </div>
+            </div>
+
+            {/* Right: Candidate Leaderboard */}
+            <div className="lg:col-span-8 space-y-4">
+              {/* Trial Header Summary Card */}
+              <div className="bg-slate-900 border border-slate-800 rounded-xl p-5">
+                <div className="flex flex-wrap items-center justify-between gap-3">
+                  <div>
+                    <div className="flex items-center gap-2">
+                      <span className="font-mono text-xs px-2 py-0.5 rounded bg-teal-500/10 text-teal-400 border border-teal-500/30 font-bold">
+                        {selectedTrial?.trial_id}
+                      </span>
+                      <span className="text-xs font-semibold px-2 py-0.5 rounded bg-slate-800 text-slate-300">
+                        {selectedTrial?.phase}
+                      </span>
+                      <span className="text-xs text-slate-400 font-mono">• {selectedTrial?.target_condition}</span>
+                    </div>
+                    <h2 className="text-xl font-bold text-white mt-1">{selectedTrial?.name}</h2>
+                    <p className="text-xs text-slate-400 mt-1">{selectedTrial?.summary}</p>
+                  </div>
                 </div>
+
+                {/* Filter and Search Bar */}
+                <div className="flex flex-wrap items-center justify-between gap-3 mt-4 pt-4 border-t border-slate-800 text-xs">
+                  <div className="flex items-center gap-1.5 bg-slate-950 p-1 rounded-lg border border-slate-800">
+                    {["ALL", "HIGH", "NEEDS VERIFICATION", "NOT SUITABLE"].map(f => (
+                      <button
+                        key={f}
+                        onClick={() => setTierFilter(f)}
+                        className={`px-2.5 py-1 rounded font-medium transition ${
+                          tierFilter === f
+                            ? "bg-slate-800 text-white shadow-sm font-semibold"
+                            : "text-slate-400 hover:text-slate-200"
+                        }`}
+                      >
+                        {f === "ALL" ? "All Candidates" : f}
+                      </button>
+                    ))}
+                  </div>
+
+                  <input
+                    type="text"
+                    placeholder="Search candidate by name/ID..."
+                    value={searchQuery}
+                    onChange={e => setSearchQuery(e.target.value)}
+                    className="px-3 py-1.5 bg-slate-950 border border-slate-800 rounded-lg text-slate-200 placeholder-slate-500 text-xs focus:outline-none focus:border-teal-500"
+                  />
+                </div>
+              </div>
+
+              {/* Candidate Cards Leaderboard */}
+              <div className="space-y-3">
+                {filteredCandidates.length === 0 ? (
+                  <div className="p-8 text-center bg-slate-900/40 rounded-xl border border-slate-800 text-slate-400 text-sm">
+                    No candidates match the selected tier filter.
+                  </div>
+                ) : (
+                  filteredCandidates.map(candidate => {
+                    const isHigh = candidate.tier === "HIGH";
+                    const isVerif = candidate.tier === "NEEDS VERIFICATION";
+
+                    return (
+                      <div
+                        key={candidate.match_id}
+                        className="bg-slate-900 border border-slate-800/90 rounded-xl p-4 hover:border-slate-700 transition flex flex-col justify-between gap-3"
+                      >
+                        <div className="flex flex-wrap items-start justify-between gap-3">
+                          <div>
+                            <div className="flex items-center gap-2">
+                              <span className="font-mono text-sm font-bold text-white">{candidate.patient_name}</span>
+                              <span className="font-mono text-xs text-slate-400 px-1.5 py-0.5 rounded bg-slate-800">
+                                {candidate.patient_id}
+                              </span>
+                            </div>
+                            <p className="text-xs text-slate-300 mt-1 max-w-xl">{candidate.summary}</p>
+                          </div>
+
+                          <div className="flex items-center gap-3">
+                            <div className="text-right">
+                              <div className="text-lg font-black font-mono text-white">
+                                {Math.round(candidate.match_score)}%
+                              </div>
+                              <span className="text-[10px] text-slate-400 uppercase font-semibold">Match Score</span>
+                            </div>
+
+                            <span
+                              className={`px-3 py-1 rounded-full text-xs font-bold font-mono border ${
+                                isHigh
+                                  ? "bg-emerald-500/10 text-emerald-400 border-emerald-500/30"
+                                  : isVerif
+                                  ? "bg-amber-500/10 text-amber-400 border-amber-500/30"
+                                  : "bg-rose-500/10 text-rose-400 border-rose-500/30"
+                              }`}
+                            >
+                              {candidate.tier}
+                            </span>
+                          </div>
+                        </div>
+
+                        {/* Action items or violations */}
+                        {candidate.action_items?.length > 0 && (
+                          <div className="flex items-center gap-2 text-xs bg-amber-500/10 border border-amber-500/20 text-amber-300 px-3 py-1.5 rounded-lg">
+                            <span>⚠️</span>
+                            <span className="font-medium">Action Required: {candidate.action_items[0]}</span>
+                          </div>
+                        )}
+
+                        <div className="flex items-center justify-between pt-2 border-t border-slate-800/70 text-xs">
+                          <div className="flex items-center gap-2 text-slate-400 font-mono text-[11px]">
+                            <span>Criteria: {candidate.counts.passed} Passed</span>
+                            <span>•</span>
+                            <span>{candidate.counts.unknown} Gaps</span>
+                            <span>•</span>
+                            <span>{candidate.counts.failed} Failed</span>
+                          </div>
+
+                          <button
+                            onClick={() => setInspectedMatch(candidate)}
+                            className="px-3 py-1 bg-slate-800 hover:bg-slate-700 text-teal-300 rounded font-semibold text-xs transition flex items-center gap-1.5"
+                          >
+                            <span>🔍</span>
+                            <span>Inspect Evidence & Audit</span>
+                          </button>
+                        </div>
+                      </div>
+                    );
+                  })
+                )}
               </div>
             </div>
           </div>
         )}
 
-        {/* MATCHING TAB */}
-        {activeTab === "match" && (
-          <div className="space-y-6 animate-fadeIn">
-            <div>
-              <h2 className="text-3xl font-bold text-gray-900">Patient-Trial Matching</h2>
-              <p className="text-gray-600 mt-2">Select a patient and trial to evaluate eligibility</p>
-            </div>
-
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-              {/* Selection Panel */}
-              <div className="bg-white rounded-xl shadow border border-gray-200 p-8">
-                <h3 className="text-xl font-semibold text-gray-900 mb-6">Select Patient & Trial</h3>
-                <div className="space-y-5">
-                  <div>
-                    <label className="block text-xs font-semibold text-gray-700 uppercase tracking-wider mb-2">Choose Patient</label>
-                    <select
-                      value={selectedPatient?.id || ""}
-                      onChange={(e) => {
-                        const patient = patients.find(p => p.id === parseInt(e.target.value));
-                        setSelectedPatient(patient);
-                      }}
-                      className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-teal-500 focus:border-transparent transition"
-                    >
-                      <option value="">-- Select a patient --</option>
-                      {patients.map((p) => (
-                        <option key={p.id} value={p.id}>
-                          Patient #{p.id}
-                        </option>
-                      ))}
-                    </select>
-                  </div>
-
-                  <div>
-                    <label className="block text-xs font-semibold text-gray-700 uppercase tracking-wider mb-2">Choose Trial</label>
-                    <select
-                      value={selectedTrial?.trial_id || ""}
-                      onChange={(e) => {
-                        const trial = trials.find(t => t.trial_id === e.target.value);
-                        setSelectedTrial(trial);
-                      }}
-                      className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-teal-500 focus:border-transparent transition"
-                    >
-                      <option value="">-- Select a trial --</option>
-                      {trials.map((t) => (
-                        <option key={t.trial_id} value={t.trial_id}>
-                          {t.name} ({t.trial_id})
-                        </option>
-                      ))}
-                    </select>
-                  </div>
-
-                  <button
-                    onClick={handleMatch}
-                    disabled={isLoading}
-                    className={`w-full text-white font-semibold py-3 rounded-lg transition transform shadow-md text-lg ${isLoading ? 'bg-gray-400 cursor-not-allowed' : 'bg-gradient-to-r from-teal-600 to-teal-500 hover:from-teal-700 hover:to-teal-600 hover:-translate-y-0.5 active:translate-y-0'}`}
-                  >
-                    {isLoading ? "Analyzing via BioBERT..." : "Analyze Eligibility"}
-                  </button>
-                </div>
-
-                {selectedPatient && (
-                  <div className="mt-6 p-4 bg-gray-50 rounded-lg border-l-4 border-teal-600">
-                    <h4 className="font-semibold text-gray-900 mb-3">Selected Patient</h4>
-                    <div className="mt-3">
-                      <p className="text-sm text-gray-700 italic border-l-2 border-gray-300 pl-3">"{selectedPatient.report_text}"</p>
-                    </div>
-                  </div>
-                )}
-
-                {selectedTrial && (
-                  <div className="mt-4 p-4 bg-gray-50 rounded-lg border-l-4 border-teal-600">
-                    <h4 className="font-semibold text-gray-900 mb-2">Selected Trial</h4>
-                    <p className="font-semibold text-gray-900">{selectedTrial.name}</p>
-                    <p className="text-sm text-gray-600">{selectedTrial.trial_id}</p>
-                  </div>
-                )}
+        {/* ----------------------------------------------------
+            TAB 2: PATIENT-CENTRIC VIEW
+        ---------------------------------------------------- */}
+        {activeTab === "patient-centric" && (
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
+            {/* Left: Patient Cohort Selector */}
+            <div className="lg:col-span-4 space-y-3">
+              <div className="flex items-center justify-between mb-1">
+                <h3 className="text-xs font-bold uppercase tracking-wider text-slate-400">Select Patient</h3>
+                <span className="text-xs text-slate-500 font-mono">{patients.length || 50} total</span>
               </div>
 
-              {/* Results Panel */}
-              <div className="bg-white rounded-xl shadow border border-gray-200 p-8">
-                {matchResults ? (
-                  <div className="space-y-6">
+              <div className="space-y-2 max-h-[750px] overflow-y-auto pr-1">
+                {(patients.length > 0 ? patients : Array.from({ length: 50 }, (_, i) => ({ patient_id: `P${String(i+1).padStart(3, '0')}`, name: `Patient ${i+1}` }))).map(p => {
+                  const isSelected = p.patient_id === selectedPatientId;
+                  const opps = fleetResults?.by_patient?.[p.patient_id] || [];
+                  const highOpps = opps.filter(o => o.tier === "HIGH").length;
+
+                  return (
                     <div
-                      className={`p-6 rounded-lg border-2 ${
-                        matchResults.eligible
-                          ? "bg-green-50 border-green-300"
-                          : "bg-red-50 border-red-300"
+                      key={p.patient_id}
+                      onClick={() => setSelectedPatientId(p.patient_id)}
+                      className={`p-3 rounded-xl border cursor-pointer transition ${
+                        isSelected
+                          ? "bg-slate-900 border-teal-500/70 shadow-lg shadow-teal-500/5 ring-1 ring-teal-500/20"
+                          : "bg-slate-900/40 border-slate-800 hover:border-slate-700 hover:bg-slate-900/80"
                       }`}
                     >
-                      <div className="flex items-center gap-4">
-                        <div
-                          className={`w-16 h-16 rounded-full flex items-center justify-center text-3xl font-bold ${
-                            matchResults.eligible
-                              ? "bg-green-200 text-green-700"
-                              : "bg-red-200 text-red-700"
-                          }`}
-                        >
-                          {matchResults.eligible ? "✓" : "✗"}
-                        </div>
-                        <div>
-                          <h3 className={`text-2xl font-bold ${
-                            matchResults.eligible ? "text-green-700" : "text-red-700"
-                          }`}>
-                            {matchResults.eligible ? "Eligible" : "Not Eligible"}
-                          </h3>
-                          <p className="text-gray-700 mt-1">
-                            Match Score: <span className="font-bold text-lg">{matchResults.score}%</span>
-                          </p>
-                        </div>
+                      <div className="flex items-center justify-between">
+                        <span className="font-mono text-xs font-bold text-teal-400">{p.patient_id}</span>
+                        <span className="text-xs font-semibold text-white">{p.name}</span>
+                      </div>
+                      <div className="flex items-center justify-between mt-2 pt-1 border-t border-slate-800/80 text-[11px] font-mono text-slate-400">
+                        <span>{opps.length} Evaluated</span>
+                        <span className="text-emerald-400 font-bold">{highOpps} High Matches</span>
                       </div>
                     </div>
+                  );
+                })}
+              </div>
+            </div>
 
-                    <div className="space-y-4">
-                      {matchResults.satisfiedConditions.length > 0 && (
-                        <div className="p-4 bg-green-50 border border-green-200 rounded-lg">
-                          <h4 className="font-semibold text-green-700 mb-3">✓ Satisfied Criteria</h4>
-                          <ul className="space-y-2">
-                            {matchResults.satisfiedConditions.map((c, i) => (
-                              <li key={i} className="text-sm text-green-700 flex gap-2">
-                                <span className="font-bold">•</span>
-                                <span>{c}</span>
-                              </li>
-                            ))}
-                          </ul>
-                        </div>
-                      )}
+            {/* Right: Patient Trial Opportunities */}
+            <div className="lg:col-span-8 space-y-4">
+              <div className="bg-slate-900 border border-slate-800 rounded-xl p-5">
+                <div className="flex items-center justify-between">
+                  <div>
+                    <div className="flex items-center gap-2">
+                      <span className="font-mono text-xs font-bold px-2 py-0.5 rounded bg-teal-500/10 text-teal-400 border border-teal-500/30">
+                        {selectedPatientId}
+                      </span>
+                      <span className="text-slate-400 text-xs">Patient Profile</span>
+                    </div>
+                    <h2 className="text-xl font-bold text-white mt-1">
+                      {patients.find(p => p.patient_id === selectedPatientId)?.name || selectedPatientId}
+                    </h2>
+                  </div>
+                </div>
 
-                      {matchResults.failedConditions.length > 0 && (
-                        <div className="p-4 bg-red-50 border border-red-200 rounded-lg">
-                          <h4 className="font-semibold text-red-700 mb-3">✗ Failed Criteria</h4>
-                          <ul className="space-y-2">
-                            {matchResults.failedConditions.map((c, i) => (
-                              <li key={i} className="text-sm text-red-700 flex gap-2">
-                                <span className="font-bold">•</span>
-                                <span>{c}</span>
-                              </li>
-                            ))}
-                          </ul>
-                        </div>
-                      )}
-                    </div>
-                    
-                    {/* BioBERT Semantic Analysis */}
-                    <div className="mt-6 p-5 bg-teal-50 border border-teal-200 rounded-lg shadow-inner">
-                      <div className="flex items-center gap-3 mb-4">
-                        <span className="text-2xl">🧠</span>
-                        <h4 className="font-bold text-teal-800 text-lg">BioBERT Semantic Analysis</h4>
-                      </div>
-                      
-                      <div className="grid grid-cols-2 gap-4 mb-4">
-                        <div className="bg-white p-3 rounded shadow-sm border border-teal-100">
-                          <p className="text-xs text-teal-600 uppercase font-bold">Rule-Based Score</p>
-                          <p className="text-xl font-bold text-gray-800">{Math.round(matchResults.ruleScore * 100)}%</p>
-                        </div>
-                        <div className="bg-white p-3 rounded shadow-sm border border-teal-100">
-                          <p className="text-xs text-teal-600 uppercase font-bold">Semantic Score</p>
-                          <p className="text-xl font-bold text-gray-800">{Math.round(matchResults.bertScore * 100)}%</p>
-                        </div>
-                      </div>
-                      
-                      <div className="bg-white p-4 rounded shadow-sm border border-teal-100 mb-4">
-                        <h5 className="text-sm font-bold text-gray-800 mb-2">Interpretation</h5>
-                        <p className="text-sm text-gray-700">{matchResults.interpretation}</p>
-                      </div>
-                      
-                      <p className="text-sm text-teal-700 italic">
-                        "{matchResults.semanticAnalysis}"
-                      </p>
-                    </div>
-                  </div>
-                ) : (
-                  <div className="flex flex-col items-center justify-center py-12 text-center">
-                    <div className="text-5xl mb-4">🔍</div>
-                    <p className="text-gray-600">
-                      Select a patient and trial, then click "Analyze Eligibility" to see matching results.
-                    </p>
-                  </div>
+                {patients.find(p => p.patient_id === selectedPatientId)?.clinical_text && (
+                  <p className="mt-3 text-xs text-slate-300 italic p-3 bg-slate-950 rounded-lg border border-slate-800/80">
+                    "{patients.find(p => p.patient_id === selectedPatientId).clinical_text}"
+                  </p>
                 )}
               </div>
+
+              {/* Opportunity Cards */}
+              <div className="space-y-3">
+                <h3 className="text-xs font-bold uppercase tracking-wider text-slate-400">
+                  Matched Trial Opportunities ({patientOpportunities.length})
+                </h3>
+
+                {patientOpportunities.length === 0 ? (
+                  <div className="p-8 text-center bg-slate-900/40 rounded-xl border border-slate-800 text-slate-400 text-sm">
+                    No evaluated trial opportunities found for this patient.
+                  </div>
+                ) : (
+                  patientOpportunities.map(opp => (
+                    <div
+                      key={opp.match_id}
+                      className="bg-slate-900 border border-slate-800 rounded-xl p-4 flex flex-col justify-between gap-3"
+                    >
+                      <div className="flex flex-wrap items-start justify-between gap-3">
+                        <div>
+                          <div className="flex items-center gap-2">
+                            <span className="font-mono text-xs font-bold px-1.5 py-0.5 rounded bg-slate-800 text-teal-400 border border-slate-700">
+                              {opp.trial_id}
+                            </span>
+                            <span className="font-bold text-sm text-white">{opp.trial_name}</span>
+                          </div>
+                          <p className="text-xs text-slate-300 mt-1 max-w-xl">{opp.summary}</p>
+                        </div>
+
+                        <div className="flex items-center gap-3">
+                          <div className="text-right">
+                            <div className="text-lg font-black font-mono text-white">{Math.round(opp.match_score)}%</div>
+                          </div>
+                          <span
+                            className={`px-3 py-1 rounded-full text-xs font-bold font-mono border ${
+                              opp.tier === "HIGH"
+                                ? "bg-emerald-500/10 text-emerald-400 border-emerald-500/30"
+                                : opp.tier === "NEEDS VERIFICATION"
+                                ? "bg-amber-500/10 text-amber-400 border-amber-500/30"
+                                : "bg-rose-500/10 text-rose-400 border-rose-500/30"
+                            }`}
+                          >
+                            {opp.tier}
+                          </span>
+                        </div>
+                      </div>
+
+                      <div className="flex items-center justify-between pt-2 border-t border-slate-800 text-xs">
+                        <span className="text-slate-400 text-[11px] font-mono">
+                          {opp.counts.passed} Passed / {opp.counts.total} Total Rules
+                        </span>
+
+                        <button
+                          onClick={() => setInspectedMatch(opp)}
+                          className="px-3 py-1 bg-slate-800 hover:bg-slate-700 text-teal-300 rounded font-semibold text-xs transition"
+                        >
+                          Inspect Evidence
+                        </button>
+                      </div>
+                    </div>
+                  ))
+                )}
+              </div>
+            </div>
+          </div>
+        )}
+
+        {/* ----------------------------------------------------
+            TAB 3: PATIENT COHORT DIRECTORY
+        ---------------------------------------------------- */}
+        {activeTab === "patients" && (
+          <div className="space-y-4">
+            <div className="flex items-center justify-between">
+              <div>
+                <h2 className="text-xl font-bold text-white">Hospital Patient Cohort</h2>
+                <p className="text-xs text-slate-400">Enrolled records with unstructured narratives & structured profiles</p>
+              </div>
+            </div>
+
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+              {(patients.length > 0 ? patients : Array.from({ length: 50 }, (_, i) => ({ patient_id: `P${String(i+1).padStart(3, '0')}`, name: `Patient ${i+1}`, clinical_text: "Demographic and clinical progress notes..." }))).map(p => (
+                <div key={p.patient_id} className="bg-slate-900 border border-slate-800 rounded-xl p-4 flex flex-col justify-between">
+                  <div>
+                    <div className="flex items-center justify-between mb-2">
+                      <span className="font-mono text-xs font-bold text-teal-400">{p.patient_id}</span>
+                      <span className="text-xs font-semibold text-white">{p.name}</span>
+                    </div>
+                    <p className="text-xs text-slate-400 line-clamp-3 italic">"{p.clinical_text}"</p>
+                  </div>
+
+                  {p.structured_profile && (
+                    <div className="mt-3 pt-2 border-t border-slate-800/80 flex items-center justify-between text-[11px] font-mono text-slate-400">
+                      <span>Age: {p.structured_profile.demographics?.age}</span>
+                      <span>HbA1c: {p.structured_profile.labs?.HbA1c?.value}%</span>
+                      <span>BMI: {p.structured_profile.labs?.BMI?.value}</span>
+                    </div>
+                  )}
+                </div>
+              ))}
+            </div>
+          </div>
+        )}
+
+        {/* ----------------------------------------------------
+            TAB 4: ACTIVE PROTOCOLS DIRECTORY
+        ---------------------------------------------------- */}
+        {activeTab === "trials" && (
+          <div className="space-y-4">
+            <div className="flex items-center justify-between">
+              <div>
+                <h2 className="text-xl font-bold text-white">Active Trial Protocol Registry</h2>
+                <p className="text-xs text-slate-400">Deconstructed atomic inclusion and exclusion criteria</p>
+              </div>
+            </div>
+
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              {trials.map(trial => (
+                <div key={trial.trial_id} className="bg-slate-900 border border-slate-800 rounded-xl p-5 space-y-3">
+                  <div className="flex items-start justify-between">
+                    <div>
+                      <div className="flex items-center gap-2">
+                        <span className="font-mono text-xs font-bold px-2 py-0.5 rounded bg-slate-800 text-teal-400 border border-slate-700">
+                          {trial.trial_id}
+                        </span>
+                        <span className="text-xs font-semibold text-slate-300">{trial.phase}</span>
+                      </div>
+                      <h3 className="text-base font-bold text-white mt-1">{trial.name}</h3>
+                    </div>
+                  </div>
+
+                  <p className="text-xs text-slate-400">{trial.summary}</p>
+
+                  <div className="space-y-1.5 pt-2 border-t border-slate-800">
+                    <span className="text-[11px] font-bold uppercase tracking-wider text-slate-400">Atomic Rules:</span>
+                    <ul className="space-y-1 text-xs text-slate-300">
+                      {trial.criteria?.map(c => (
+                        <li key={c.id} className="flex items-start gap-1.5">
+                          <span className={`text-[10px] font-bold px-1 rounded uppercase font-mono ${c.clause === "inclusion" ? "text-blue-400 bg-blue-950/60" : "text-rose-400 bg-rose-950/60"}`}>
+                            {c.clause === "inclusion" ? "INC" : "EXC"}
+                          </span>
+                          <span className="text-slate-300">{c.description}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                </div>
+              ))}
             </div>
           </div>
         )}
       </main>
+
+      {/* ==========================================
+          EXPLAINABLE EVIDENCE & AUDIT DRAWER (MODAL)
+      ========================================== */}
+      {inspectedMatch && (
+        <div className="fixed inset-0 z-50 bg-slate-950/80 backdrop-blur-sm flex items-center justify-center p-4">
+          <div className="bg-slate-900 border border-slate-800 w-full max-w-3xl rounded-2xl shadow-2xl flex flex-col max-h-[90vh] overflow-hidden animate-fadeIn">
+            {/* Modal Header */}
+            <div className="p-6 border-b border-slate-800 flex items-start justify-between bg-slate-950/50">
+              <div>
+                <div className="flex items-center gap-2">
+                  <span className="font-mono text-xs px-2 py-0.5 rounded bg-teal-500/10 text-teal-400 border border-teal-500/30 font-bold">
+                    {inspectedMatch.trial_id}
+                  </span>
+                  <span className="font-mono text-xs text-slate-400">↔</span>
+                  <span className="font-mono text-xs px-2 py-0.5 rounded bg-slate-800 text-slate-300 font-bold">
+                    {inspectedMatch.patient_id}
+                  </span>
+                  <span
+                    className={`ml-2 px-2.5 py-0.5 rounded-full text-xs font-bold font-mono border ${
+                      inspectedMatch.tier === "HIGH"
+                        ? "bg-emerald-500/10 text-emerald-400 border-emerald-500/30"
+                        : inspectedMatch.tier === "NEEDS VERIFICATION"
+                        ? "bg-amber-500/10 text-amber-400 border-amber-500/30"
+                        : "bg-rose-500/10 text-rose-400 border-rose-500/30"
+                    }`}
+                  >
+                    {inspectedMatch.tier} ({Math.round(inspectedMatch.match_score)}%)
+                  </span>
+                </div>
+                <h3 className="text-lg font-bold text-white mt-1">
+                  {inspectedMatch.patient_name} — {inspectedMatch.trial_name}
+                </h3>
+              </div>
+
+              <button
+                onClick={() => setInspectedMatch(null)}
+                className="w-8 h-8 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-400 hover:text-white flex items-center justify-center font-bold"
+              >
+                ✕
+              </button>
+            </div>
+
+            {/* Modal Body */}
+            <div className="p-6 overflow-y-auto space-y-5 text-xs">
+              {/* Verdict Summary */}
+              <div className="p-3.5 bg-slate-950 rounded-xl border border-slate-800">
+                <span className="text-[11px] font-bold uppercase tracking-wider text-slate-400">Clinical Auditor Verdict:</span>
+                <p className="text-slate-200 mt-1 leading-relaxed">{inspectedMatch.summary}</p>
+              </div>
+
+              {/* Action Required Alert */}
+              {inspectedMatch.action_items?.length > 0 && (
+                <div className="p-3.5 bg-amber-950/20 border border-amber-500/30 rounded-xl text-amber-200 space-y-1">
+                  <div className="flex items-center gap-2 font-bold text-amber-400 text-xs uppercase tracking-wide">
+                    <span>⚠️</span>
+                    <span>Action Required Prior to Enrollment</span>
+                  </div>
+                  <ul className="list-disc list-inside text-xs space-y-0.5 text-amber-200/90 pl-1">
+                    {inspectedMatch.action_items.map((act, i) => (
+                      <li key={i}>{act}</li>
+                    ))}
+                  </ul>
+                </div>
+              )}
+
+              {/* Atomic Criteria Evidence Breakdown */}
+              <div className="space-y-3">
+                <h4 className="text-xs font-bold uppercase tracking-wider text-slate-400">
+                  Atomic Criteria Evidence Trace ({inspectedMatch.criteria_evaluations?.length || 0})
+                </h4>
+
+                <div className="space-y-2.5">
+                  {inspectedMatch.criteria_evaluations?.map((ev, i) => {
+                    const isPass = ev.status === "PASS";
+                    const isFail = ev.status === "FAIL";
+
+                    return (
+                      <div
+                        key={i}
+                        className={`p-3.5 rounded-xl border ${
+                          isPass
+                            ? "bg-slate-950/60 border-slate-800"
+                            : isFail
+                            ? "bg-rose-950/10 border-rose-900/40"
+                            : "bg-amber-950/10 border-amber-900/40"
+                        }`}
+                      >
+                        <div className="flex items-center justify-between gap-2 mb-1.5">
+                          <div className="flex items-center gap-2">
+                            <span
+                              className={`text-[10px] font-bold px-1.5 py-0.5 rounded font-mono uppercase ${
+                                ev.clause === "inclusion" ? "text-blue-400 bg-blue-950/80" : "text-purple-400 bg-purple-950/80"
+                              }`}
+                            >
+                              {ev.clause}
+                            </span>
+                            <span className="font-semibold text-slate-200 text-xs">{ev.rule_description}</span>
+                          </div>
+
+                          <div className="flex items-center gap-2">
+                            <span
+                              className={`px-2 py-0.5 rounded text-[11px] font-mono font-bold ${
+                                isPass
+                                  ? "bg-emerald-500/20 text-emerald-400"
+                                  : isFail
+                                  ? "bg-rose-500/20 text-rose-400"
+                                  : "bg-amber-500/20 text-amber-400"
+                              }`}
+                            >
+                              {ev.status}
+                            </span>
+                          </div>
+                        </div>
+
+                        {/* Quoted Evidence */}
+                        <div className="p-2.5 bg-slate-900/80 rounded-lg border border-slate-800/80 mt-2 text-xs">
+                          <span className="text-[10px] font-bold uppercase tracking-wider text-slate-500 block mb-1">
+                            Extracted EHR Evidence:
+                          </span>
+                          <p className="text-slate-300 font-mono text-[11px] leading-relaxed">
+                            {ev.evidence_quote}
+                          </p>
+                        </div>
+
+                        {/* Tool Attribution */}
+                        <div className="flex items-center justify-between mt-2 text-[10px] text-slate-400 font-mono">
+                          <span>Tool: <strong className="text-teal-400">{ev.tool_used}</strong></span>
+                          <span>Confidence: <strong>{Math.round((ev.confidence || 1.0) * 100)}%</strong></span>
+                        </div>
+                      </div>
+                    );
+                  })}
+                </div>
+              </div>
+            </div>
+
+            {/* Modal Footer */}
+            <div className="p-4 border-t border-slate-800 bg-slate-950/50 flex justify-end">
+              <button
+                onClick={() => setInspectedMatch(null)}
+                className="px-4 py-2 bg-slate-800 hover:bg-slate-700 text-white rounded-lg text-xs font-semibold transition"
+              >
+                Close Audit Inspection
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }
-
-export default TrialMatch;

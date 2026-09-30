@@ -1,0 +1,423 @@
+[
+  {
+    "trial_id": "T01",
+    "name": "DIAMOND-MET Study",
+    "phase": "Phase III",
+    "target_condition": "Type 2 Diabetes",
+    "summary": "Evaluating novel dual-action GLP-1/GIP agonists in adult Type 2 Diabetes patients without insulin exposure.",
+    "criteria": [
+      {
+        "id": "C01_1",
+        "clause": "inclusion",
+        "type": "numeric",
+        "field": "age",
+        "operator": "between",
+        "value": [40, 65],
+        "description": "Age between 40 and 65 years inclusive"
+      },
+      {
+        "id": "C01_2",
+        "clause": "inclusion",
+        "type": "numeric",
+        "field": "HbA1c",
+        "operator": ">",
+        "value": 7.0,
+        "description": "Baseline HbA1c > 7.0%"
+      },
+      {
+        "id": "C01_3",
+        "clause": "inclusion",
+        "type": "semantic",
+        "concept": "Patient has no history of prior insulin therapy",
+        "description": "No prior exposure to insulin therapy"
+      },
+      {
+        "id": "C01_4",
+        "clause": "exclusion",
+        "type": "semantic",
+        "concept": "Patient has active kidney disease or severe renal impairment",
+        "description": "History of chronic kidney disease or renal failure"
+      },
+      {
+        "id": "C01_5",
+        "clause": "exclusion",
+        "type": "semantic",
+        "concept": "Patient has heart failure or congestive cardiac failure",
+        "description": "Documented heart failure"
+      }
+    ]
+  },
+  {
+    "trial_id": "T02",
+    "name": "GLUCO-GUARD Cardiovascular Safety Trial",
+    "phase": "Phase IV",
+    "target_condition": "Type 2 Diabetes",
+    "summary": "Assessing cardiovascular outcomes and renal preservation in overweight patients with elevated HbA1c.",
+    "criteria": [
+      {
+        "id": "C02_1",
+        "clause": "inclusion",
+        "type": "numeric",
+        "field": "age",
+        "operator": "between",
+        "value": [30, 70],
+        "description": "Age between 30 and 70 years"
+      },
+      {
+        "id": "C02_2",
+        "clause": "inclusion",
+        "type": "numeric",
+        "field": "BMI",
+        "operator": ">=",
+        "value": 27.0,
+        "description": "BMI >= 27.0 kg/m2 (overweight or obese)"
+      },
+      {
+        "id": "C02_3",
+        "clause": "inclusion",
+        "type": "numeric",
+        "field": "HbA1c",
+        "operator": "between",
+        "value": [6.5, 9.5],
+        "description": "HbA1c between 6.5% and 9.5%"
+      },
+      {
+        "id": "C02_4",
+        "clause": "exclusion",
+        "type": "semantic",
+        "concept": "Patient is pregnant or planning pregnancy",
+        "description": "Pregnancy or lactation"
+      },
+      {
+        "id": "C02_5",
+        "clause": "exclusion",
+        "type": "semantic",
+        "concept": "Patient has liver disease, cirrhosis or acute hepatic injury",
+        "description": "Active liver disease"
+      }
+    ]
+  },
+  {
+    "trial_id": "T03",
+    "name": "RENAL-SAVE Diabetic Nephropathy Trial",
+    "phase": "Phase IIb",
+    "target_condition": "Type 2 Diabetes",
+    "summary": "Targeted renal protective therapy in patients with diabetic kidney involvement and controlled glycemic status.",
+    "criteria": [
+      {
+        "id": "C03_1",
+        "clause": "inclusion",
+        "type": "numeric",
+        "field": "age",
+        "operator": "between",
+        "value": [45, 75],
+        "description": "Age between 45 and 75 years"
+      },
+      {
+        "id": "C03_2",
+        "clause": "inclusion",
+        "type": "numeric",
+        "field": "HbA1c",
+        "operator": "<=",
+        "value": 9.0,
+        "description": "HbA1c <= 9.0%"
+      },
+      {
+        "id": "C03_3",
+        "clause": "inclusion",
+        "type": "numeric",
+        "field": "eGFR",
+        "operator": "between",
+        "value": [30, 60],
+        "description": "Moderate renal impairment with eGFR between 30 and 60 mL/min/1.73m2"
+      },
+      {
+        "id": "C03_4",
+        "clause": "exclusion",
+        "type": "semantic",
+        "concept": "Patient has end stage renal disease or is on dialysis",
+        "description": "End-stage renal disease (ESRD) or active hemodialysis"
+      },
+      {
+        "id": "C03_5",
+        "clause": "exclusion",
+        "type": "semantic",
+        "concept": "Patient had a recent stroke or acute cerebrovascular accident",
+        "description": "Stroke within past 6 months"
+      }
+    ]
+  },
+  {
+    "trial_id": "T04",
+    "name": "MET-CONTROL 2026 Intensive Monotherapy",
+    "phase": "Phase III",
+    "target_condition": "Type 2 Diabetes",
+    "summary": "Evaluating once-weekly insulin sensitizer add-on for patients sub-optimally controlled on Metformin alone.",
+    "criteria": [
+      {
+        "id": "C04_1",
+        "clause": "inclusion",
+        "type": "numeric",
+        "field": "age",
+        "operator": "between",
+        "value": [35, 65],
+        "description": "Age between 35 and 65 years"
+      },
+      {
+        "id": "C04_2",
+        "clause": "inclusion",
+        "type": "numeric",
+        "field": "HbA1c",
+        "operator": "between",
+        "value": [7.0, 8.5],
+        "description": "HbA1c between 7.0% and 8.5%"
+      },
+      {
+        "id": "C04_3",
+        "clause": "inclusion",
+        "type": "semantic",
+        "concept": "Patient is actively taking Metformin therapy",
+        "description": "Current stable Metformin therapy"
+      },
+      {
+        "id": "C04_4",
+        "clause": "exclusion",
+        "type": "semantic",
+        "concept": "Patient has previous history of insulin therapy",
+        "description": "Prior insulin exposure"
+      },
+      {
+        "id": "C04_5",
+        "clause": "exclusion",
+        "type": "numeric",
+        "field": "eGFR",
+        "operator": "<",
+        "value": 45,
+        "description": "eGFR < 45 mL/min/1.73m2"
+      }
+    ]
+  },
+  {
+    "trial_id": "T05",
+    "name": "CARDIO-VASC Dual Protection Initiative",
+    "phase": "Phase III",
+    "target_condition": "Type 2 Diabetes",
+    "summary": "Cardiovascular risk reduction in diabetic patients with comorbid hypertension.",
+    "criteria": [
+      {
+        "id": "C05_1",
+        "clause": "inclusion",
+        "type": "numeric",
+        "field": "age",
+        "operator": "between",
+        "value": [45, 80],
+        "description": "Age between 45 and 80 years"
+      },
+      {
+        "id": "C05_2",
+        "clause": "inclusion",
+        "type": "semantic",
+        "concept": "Patient has diagnosed hypertension or elevated blood pressure",
+        "description": "Documented hypertension"
+      },
+      {
+        "id": "C05_3",
+        "clause": "inclusion",
+        "type": "numeric",
+        "field": "HbA1c",
+        "operator": ">=",
+        "value": 7.0,
+        "description": "HbA1c >= 7.0%"
+      },
+      {
+        "id": "C05_4",
+        "clause": "exclusion",
+        "type": "semantic",
+        "concept": "Patient had acute myocardial infarction or cardiac arrest",
+        "description": "History of acute myocardial infarction"
+      }
+    ]
+  },
+  {
+    "trial_id": "T06",
+    "name": "NEURO-SHIELD Peripheral Neuropathy Prevention",
+    "phase": "Phase II",
+    "target_condition": "Type 2 Diabetes",
+    "summary": "Targeted neurotrophic agent to arrest progression of sensory diabetic peripheral neuropathy.",
+    "criteria": [
+      {
+        "id": "C06_1",
+        "clause": "inclusion",
+        "type": "numeric",
+        "field": "age",
+        "operator": "between",
+        "value": [40, 70],
+        "description": "Age between 40 and 70 years"
+      },
+      {
+        "id": "C06_2",
+        "clause": "inclusion",
+        "type": "semantic",
+        "concept": "Patient has symptoms or diagnosis of diabetic peripheral neuropathy",
+        "description": "Confirmed diabetic neuropathy"
+      },
+      {
+        "id": "C06_3",
+        "clause": "exclusion",
+        "type": "semantic",
+        "concept": "Patient has active diabetic foot ulcer or severe vascular gangrene",
+        "description": "Active diabetic foot ulcers"
+      }
+    ]
+  },
+  {
+    "trial_id": "T07",
+    "name": "HYPER-TENS Novel Vasodilator Trial",
+    "phase": "Phase III",
+    "target_condition": "Hypertension",
+    "summary": "Testing next-generation selective aldosterone receptor blocker for refractory high blood pressure.",
+    "criteria": [
+      {
+        "id": "C07_1",
+        "clause": "inclusion",
+        "type": "numeric",
+        "field": "age",
+        "operator": "between",
+        "value": [30, 75],
+        "description": "Age between 30 and 75 years"
+      },
+      {
+        "id": "C07_2",
+        "clause": "inclusion",
+        "type": "semantic",
+        "concept": "Patient has essential hypertension or high blood pressure",
+        "description": "Confirmed hypertension"
+      },
+      {
+        "id": "C07_3",
+        "clause": "exclusion",
+        "type": "semantic",
+        "concept": "Patient has advanced renal failure or kidney disease",
+        "description": "Severe renal impairment"
+      }
+    ]
+  },
+  {
+    "trial_id": "T08",
+    "name": "OBESE-MET Metabolic Reset Protocol",
+    "phase": "Phase IIa",
+    "target_condition": "Type 2 Diabetes",
+    "summary": "Investigating high-affinity GLP-1/Glucagon co-agonists in severe obesity with metabolic syndrome.",
+    "criteria": [
+      {
+        "id": "C08_1",
+        "clause": "inclusion",
+        "type": "numeric",
+        "field": "age",
+        "operator": "between",
+        "value": [25, 60],
+        "description": "Age between 25 and 60 years"
+      },
+      {
+        "id": "C08_2",
+        "clause": "inclusion",
+        "type": "numeric",
+        "field": "BMI",
+        "operator": ">=",
+        "value": 32.0,
+        "description": "BMI >= 32.0 kg/m2"
+      },
+      {
+        "id": "C08_3",
+        "clause": "inclusion",
+        "type": "numeric",
+        "field": "HbA1c",
+        "operator": ">=",
+        "value": 6.8,
+        "description": "HbA1c >= 6.8%"
+      },
+      {
+        "id": "C08_4",
+        "clause": "exclusion",
+        "type": "semantic",
+        "concept": "Patient has history of pancreatitis or gallbladder disease",
+        "description": "History of pancreatitis"
+      }
+    ]
+  },
+  {
+    "trial_id": "T09",
+    "name": "EARLY-T2D Lifestyle + SGLT2 Combination",
+    "phase": "Phase III",
+    "target_condition": "Type 2 Diabetes",
+    "summary": "First-line oral SGLT2 inhibitor therapy in recently diagnosed adult patients with mild glycemic elevation.",
+    "criteria": [
+      {
+        "id": "C09_1",
+        "clause": "inclusion",
+        "type": "numeric",
+        "field": "age",
+        "operator": "between",
+        "value": [21, 55],
+        "description": "Age between 21 and 55 years"
+      },
+      {
+        "id": "C09_2",
+        "clause": "inclusion",
+        "type": "numeric",
+        "field": "HbA1c",
+        "operator": "between",
+        "value": [6.5, 8.0],
+        "description": "HbA1c between 6.5% and 8.0%"
+      },
+      {
+        "id": "C09_3",
+        "clause": "exclusion",
+        "type": "semantic",
+        "concept": "Patient is taking insulin therapy",
+        "description": "Any prior or current insulin use"
+      },
+      {
+        "id": "C09_4",
+        "clause": "exclusion",
+        "type": "semantic",
+        "concept": "Patient has recurrent urinary tract infections or ketoacidosis",
+        "description": "History of DKA or recurrent fungal/urinary infections"
+      }
+    ]
+  },
+  {
+    "trial_id": "T10",
+    "name": "SENIOR-GLUCO Gentle Glycemic Control",
+    "phase": "Phase IV",
+    "target_condition": "Type 2 Diabetes",
+    "summary": "Safety and hypoglycemia avoidance trial tailored for elderly diabetic patients.",
+    "criteria": [
+      {
+        "id": "C10_1",
+        "clause": "inclusion",
+        "type": "numeric",
+        "field": "age",
+        "operator": ">=",
+        "value": 65.0,
+        "description": "Age >= 65 years"
+      },
+      {
+        "id": "C10_2",
+        "clause": "inclusion",
+        "type": "numeric",
+        "field": "HbA1c",
+        "operator": "between",
+        "value": [7.0, 9.5],
+        "description": "HbA1c between 7.0% and 9.5%"
+      },
+      {
+        "id": "C10_3",
+        "clause": "exclusion",
+        "type": "semantic",
+        "concept": "Patient has severe cognitive impairment or dementia",
+        "description": "Documented dementia or advanced cognitive decline"
+      }
+    ]
+  }
+]

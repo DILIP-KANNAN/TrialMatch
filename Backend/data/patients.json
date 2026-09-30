@@ -1,0 +1,2925 @@
+[
+  {
+    "patient_id": "P001",
+    "name": "Evelyn Harper",
+    "clinical_text": "Evelyn Harper is a 52-year-old female with established Type 2 Diabetes Mellitus. Recent laboratory panel demonstrates an HbA1c of 8.4% and a calculated BMI of 24.8 kg/m2. Patient has been maintained on oral agents and has never required insulin therapy. Renal function is preserved with eGFR 74.1 mL/min/1.73m2. No prior history of myocardial infarction or congestive heart failure. Neurological exam normal with no peripheral sensory deficits. Current regimen includes Metformin, Sitagliptin (Januvia).",
+    "structured_profile": {
+      "demographics": {
+        "age": 52,
+        "gender": "female"
+      },
+      "conditions": [
+        {
+          "name": "Type 2 Diabetes Mellitus",
+          "synonyms": [
+            "T2D",
+            "NIDDM"
+          ],
+          "duration_years": 5
+        }
+      ],
+      "labs": {
+        "HbA1c": {
+          "value": 8.4,
+          "unit": "%",
+          "recent": true
+        },
+        "BMI": {
+          "value": 24.8,
+          "unit": "kg/m2",
+          "recent": true
+        },
+        "eGFR": {
+          "value": 74.1,
+          "unit": "mL/min/1.73m2",
+          "status": "recorded"
+        }
+      },
+      "medications": [
+        {
+          "name": "Metformin",
+          "drug_class": "Biguanide",
+          "dose": "1000mg BID"
+        },
+        {
+          "name": "Sitagliptin (Januvia)",
+          "drug_class": "DPP-4 Inhibitor",
+          "dose": "100mg daily"
+        }
+      ],
+      "contraindications_cleared": [
+        "prior insulin exposure",
+        "heart failure / acute coronary events",
+        "active kidney disease"
+      ]
+    }
+  },
+  {
+    "patient_id": "P002",
+    "name": "Marcus Vance",
+    "clinical_text": "Marcus Vance is a 45-year-old male with established Type 2 Diabetes Mellitus. Recent laboratory panel demonstrates an HbA1c of 7.0% and a calculated BMI of 25.7 kg/m2. Patient has been maintained on oral agents and has never required insulin therapy. Renal function is preserved with eGFR 89.4 mL/min/1.73m2. No prior history of myocardial infarction or congestive heart failure. Neurological exam normal with no peripheral sensory deficits. Current regimen includes Metformin, Lisinopril.",
+    "structured_profile": {
+      "demographics": {
+        "age": 45,
+        "gender": "male"
+      },
+      "conditions": [
+        {
+          "name": "Type 2 Diabetes Mellitus",
+          "synonyms": [
+            "T2D",
+            "NIDDM"
+          ],
+          "duration_years": 10
+        },
+        {
+          "name": "Essential Hypertension",
+          "status": "controlled"
+        }
+      ],
+      "labs": {
+        "HbA1c": {
+          "value": 7.0,
+          "unit": "%",
+          "recent": true
+        },
+        "BMI": {
+          "value": 25.7,
+          "unit": "kg/m2",
+          "recent": true
+        },
+        "eGFR": {
+          "value": 89.4,
+          "unit": "mL/min/1.73m2",
+          "status": "recorded"
+        }
+      },
+      "medications": [
+        {
+          "name": "Metformin",
+          "drug_class": "Biguanide",
+          "dose": "1000mg BID"
+        },
+        {
+          "name": "Lisinopril",
+          "drug_class": "ACE Inhibitor",
+          "dose": "10mg daily"
+        }
+      ],
+      "contraindications_cleared": [
+        "prior insulin exposure",
+        "heart failure / acute coronary events",
+        "active kidney disease"
+      ]
+    }
+  },
+  {
+    "patient_id": "P003",
+    "name": "Arthur Pendelton",
+    "clinical_text": "Arthur Pendelton is a 68-year-old male with established Type 2 Diabetes Mellitus. Recent laboratory panel demonstrates an HbA1c of 6.8% and a calculated BMI of 29.6 kg/m2. Patient has been maintained on oral agents and has never required insulin therapy. Recent renal function and eGFR labs are not on file. No prior history of myocardial infarction or congestive heart failure. Neurological exam normal with no peripheral sensory deficits. Current regimen includes Metformin.",
+    "structured_profile": {
+      "demographics": {
+        "age": 68,
+        "gender": "male"
+      },
+      "conditions": [
+        {
+          "name": "Type 2 Diabetes Mellitus",
+          "synonyms": [
+            "T2D",
+            "NIDDM"
+          ],
+          "duration_years": 2
+        }
+      ],
+      "labs": {
+        "HbA1c": {
+          "value": 6.8,
+          "unit": "%",
+          "recent": true
+        },
+        "BMI": {
+          "value": 29.6,
+          "unit": "kg/m2",
+          "recent": true
+        },
+        "eGFR": {
+          "value": null,
+          "unit": "mL/min/1.73m2",
+          "status": "missing"
+        }
+      },
+      "medications": [
+        {
+          "name": "Metformin",
+          "drug_class": "Biguanide",
+          "dose": "1000mg BID"
+        }
+      ],
+      "contraindications_cleared": [
+        "prior insulin exposure",
+        "heart failure / acute coronary events",
+        "active kidney disease"
+      ]
+    }
+  },
+  {
+    "patient_id": "P004",
+    "name": "Sarah Jenkins",
+    "clinical_text": "Sarah Jenkins is a 34-year-old female with established Type 2 Diabetes Mellitus. Recent laboratory panel demonstrates an HbA1c of 6.9% and a calculated BMI of 27.3 kg/m2. Patient is currently managed on basal insulin therapy. Renal function is preserved with eGFR 84.9 mL/min/1.73m2. No prior history of myocardial infarction or congestive heart failure. Neurological exam normal with no peripheral sensory deficits. Current regimen includes Insulin Glargine (Lantus), Metformin, Lisinopril.",
+    "structured_profile": {
+      "demographics": {
+        "age": 34,
+        "gender": "female"
+      },
+      "conditions": [
+        {
+          "name": "Type 2 Diabetes Mellitus",
+          "synonyms": [
+            "T2D",
+            "NIDDM"
+          ],
+          "duration_years": 10
+        },
+        {
+          "name": "Essential Hypertension",
+          "status": "controlled"
+        }
+      ],
+      "labs": {
+        "HbA1c": {
+          "value": 6.9,
+          "unit": "%",
+          "recent": true
+        },
+        "BMI": {
+          "value": 27.3,
+          "unit": "kg/m2",
+          "recent": true
+        },
+        "eGFR": {
+          "value": 84.9,
+          "unit": "mL/min/1.73m2",
+          "status": "recorded"
+        }
+      },
+      "medications": [
+        {
+          "name": "Insulin Glargine (Lantus)",
+          "drug_class": "Long-Acting Insulin",
+          "dose": "20 units QHS"
+        },
+        {
+          "name": "Metformin",
+          "drug_class": "Biguanide",
+          "dose": "1000mg BID"
+        },
+        {
+          "name": "Lisinopril",
+          "drug_class": "ACE Inhibitor",
+          "dose": "10mg daily"
+        }
+      ],
+      "contraindications_cleared": [
+        "heart failure / acute coronary events",
+        "active kidney disease"
+      ]
+    }
+  },
+  {
+    "patient_id": "P005",
+    "name": "Robert Miller",
+    "clinical_text": "Robert Miller is a 60-year-old male with established Type 2 Diabetes Mellitus. Recent laboratory panel demonstrates an HbA1c of 7.2% and a calculated BMI of 32.3 kg/m2. Patient has been maintained on oral agents and has never required insulin therapy. Renal function is preserved with eGFR 83.0 mL/min/1.73m2. No prior history of myocardial infarction or congestive heart failure. Patient reports bilateral burning sensation and tingling in feet consistent with diabetic peripheral neuropathy. Current regimen includes Metformin.",
+    "structured_profile": {
+      "demographics": {
+        "age": 60,
+        "gender": "male"
+      },
+      "conditions": [
+        {
+          "name": "Type 2 Diabetes Mellitus",
+          "synonyms": [
+            "T2D",
+            "NIDDM"
+          ],
+          "duration_years": 5
+        },
+        {
+          "name": "Diabetic Peripheral Neuropathy",
+          "status": "mild sensory impairment"
+        }
+      ],
+      "labs": {
+        "HbA1c": {
+          "value": 7.2,
+          "unit": "%",
+          "recent": true
+        },
+        "BMI": {
+          "value": 32.3,
+          "unit": "kg/m2",
+          "recent": true
+        },
+        "eGFR": {
+          "value": 83.0,
+          "unit": "mL/min/1.73m2",
+          "status": "recorded"
+        }
+      },
+      "medications": [
+        {
+          "name": "Metformin",
+          "drug_class": "Biguanide",
+          "dose": "1000mg BID"
+        }
+      ],
+      "contraindications_cleared": [
+        "prior insulin exposure",
+        "heart failure / acute coronary events",
+        "active kidney disease"
+      ]
+    }
+  },
+  {
+    "patient_id": "P006",
+    "name": "Diana Prince",
+    "clinical_text": "Diana Prince is a 48-year-old female with established Type 2 Diabetes Mellitus. Recent laboratory panel demonstrates an HbA1c of 7.9% and a calculated BMI of 27.8 kg/m2. Patient has been maintained on oral agents and has never required insulin therapy. Recent renal function and eGFR labs are not on file. Medical history is notable for coronary artery disease. Neurological exam normal with no peripheral sensory deficits. Current regimen includes Metformin, Lisinopril.",
+    "structured_profile": {
+      "demographics": {
+        "age": 48,
+        "gender": "female"
+      },
+      "conditions": [
+        {
+          "name": "Type 2 Diabetes Mellitus",
+          "synonyms": [
+            "T2D",
+            "NIDDM"
+          ],
+          "duration_years": 2
+        },
+        {
+          "name": "Essential Hypertension",
+          "status": "controlled"
+        },
+        {
+          "name": "Coronary Artery Disease",
+          "status": "stable"
+        }
+      ],
+      "labs": {
+        "HbA1c": {
+          "value": 7.9,
+          "unit": "%",
+          "recent": true
+        },
+        "BMI": {
+          "value": 27.8,
+          "unit": "kg/m2",
+          "recent": true
+        },
+        "eGFR": {
+          "value": null,
+          "unit": "mL/min/1.73m2",
+          "status": "missing"
+        }
+      },
+      "medications": [
+        {
+          "name": "Metformin",
+          "drug_class": "Biguanide",
+          "dose": "1000mg BID"
+        },
+        {
+          "name": "Lisinopril",
+          "drug_class": "ACE Inhibitor",
+          "dose": "10mg daily"
+        }
+      ],
+      "contraindications_cleared": [
+        "prior insulin exposure",
+        "active kidney disease"
+      ]
+    }
+  },
+  {
+    "patient_id": "P007",
+    "name": "Thomas Shelby",
+    "clinical_text": "Thomas Shelby is a 55-year-old male with established Type 2 Diabetes Mellitus. Recent laboratory panel demonstrates an HbA1c of 8.7% and a calculated BMI of 26.4 kg/m2. Patient has been maintained on oral agents and has never required insulin therapy. Renal assessment indicates chronic kidney impairment with eGFR of 38.8 mL/min/1.73m2. No prior history of myocardial infarction or congestive heart failure. Neurological exam normal with no peripheral sensory deficits. Current regimen includes Metformin, Sitagliptin (Januvia).",
+    "structured_profile": {
+      "demographics": {
+        "age": 55,
+        "gender": "male"
+      },
+      "conditions": [
+        {
+          "name": "Type 2 Diabetes Mellitus",
+          "synonyms": [
+            "T2D",
+            "NIDDM"
+          ],
+          "duration_years": 6
+        },
+        {
+          "name": "Chronic Kidney Disease",
+          "status": "moderate renal impairment"
+        }
+      ],
+      "labs": {
+        "HbA1c": {
+          "value": 8.7,
+          "unit": "%",
+          "recent": true
+        },
+        "BMI": {
+          "value": 26.4,
+          "unit": "kg/m2",
+          "recent": true
+        },
+        "eGFR": {
+          "value": 38.8,
+          "unit": "mL/min/1.73m2",
+          "status": "recorded"
+        }
+      },
+      "medications": [
+        {
+          "name": "Metformin",
+          "drug_class": "Biguanide",
+          "dose": "1000mg BID"
+        },
+        {
+          "name": "Sitagliptin (Januvia)",
+          "drug_class": "DPP-4 Inhibitor",
+          "dose": "100mg daily"
+        }
+      ],
+      "contraindications_cleared": [
+        "prior insulin exposure",
+        "heart failure / acute coronary events"
+      ]
+    }
+  },
+  {
+    "patient_id": "P008",
+    "name": "Chloe Bennet",
+    "clinical_text": "Chloe Bennet is a 29-year-old female with established Type 2 Diabetes Mellitus. Recent laboratory panel demonstrates an HbA1c of 7.0% and a calculated BMI of 36.0 kg/m2. Patient is currently managed on basal insulin therapy. Renal function is preserved with eGFR 76.1 mL/min/1.73m2. No prior history of myocardial infarction or congestive heart failure. Neurological exam normal with no peripheral sensory deficits. Current regimen includes Insulin Glargine (Lantus), Metformin, Lisinopril.",
+    "structured_profile": {
+      "demographics": {
+        "age": 29,
+        "gender": "female"
+      },
+      "conditions": [
+        {
+          "name": "Type 2 Diabetes Mellitus",
+          "synonyms": [
+            "T2D",
+            "NIDDM"
+          ],
+          "duration_years": 3
+        },
+        {
+          "name": "Essential Hypertension",
+          "status": "controlled"
+        }
+      ],
+      "labs": {
+        "HbA1c": {
+          "value": 7.0,
+          "unit": "%",
+          "recent": true
+        },
+        "BMI": {
+          "value": 36.0,
+          "unit": "kg/m2",
+          "recent": true
+        },
+        "eGFR": {
+          "value": 76.1,
+          "unit": "mL/min/1.73m2",
+          "status": "recorded"
+        }
+      },
+      "medications": [
+        {
+          "name": "Insulin Glargine (Lantus)",
+          "drug_class": "Long-Acting Insulin",
+          "dose": "20 units QHS"
+        },
+        {
+          "name": "Metformin",
+          "drug_class": "Biguanide",
+          "dose": "1000mg BID"
+        },
+        {
+          "name": "Lisinopril",
+          "drug_class": "ACE Inhibitor",
+          "dose": "10mg daily"
+        }
+      ],
+      "contraindications_cleared": [
+        "heart failure / acute coronary events",
+        "active kidney disease"
+      ]
+    }
+  },
+  {
+    "patient_id": "P009",
+    "name": "Walter White",
+    "clinical_text": "Walter White is a 72-year-old male with established Type 2 Diabetes Mellitus. Recent laboratory panel demonstrates an HbA1c of 7.7% and a calculated BMI of 28.8 kg/m2. Patient has been maintained on oral agents and has never required insulin therapy. Recent renal function and eGFR labs are not on file. No prior history of myocardial infarction or congestive heart failure. Neurological exam normal with no peripheral sensory deficits. Current regimen includes Metformin.",
+    "structured_profile": {
+      "demographics": {
+        "age": 72,
+        "gender": "male"
+      },
+      "conditions": [
+        {
+          "name": "Type 2 Diabetes Mellitus",
+          "synonyms": [
+            "T2D",
+            "NIDDM"
+          ],
+          "duration_years": 7
+        }
+      ],
+      "labs": {
+        "HbA1c": {
+          "value": 7.7,
+          "unit": "%",
+          "recent": true
+        },
+        "BMI": {
+          "value": 28.8,
+          "unit": "kg/m2",
+          "recent": true
+        },
+        "eGFR": {
+          "value": null,
+          "unit": "mL/min/1.73m2",
+          "status": "missing"
+        }
+      },
+      "medications": [
+        {
+          "name": "Metformin",
+          "drug_class": "Biguanide",
+          "dose": "1000mg BID"
+        }
+      ],
+      "contraindications_cleared": [
+        "prior insulin exposure",
+        "heart failure / acute coronary events",
+        "active kidney disease"
+      ]
+    }
+  },
+  {
+    "patient_id": "P010",
+    "name": "Elena Rostova",
+    "clinical_text": "Elena Rostova is a 38-year-old female with established Type 2 Diabetes Mellitus. Recent laboratory panel demonstrates an HbA1c of 8.3% and a calculated BMI of 34.2 kg/m2. Patient has been maintained on oral agents and has never required insulin therapy. Renal function is preserved with eGFR 89.1 mL/min/1.73m2. No prior history of myocardial infarction or congestive heart failure. Patient reports bilateral burning sensation and tingling in feet consistent with diabetic peripheral neuropathy. Current regimen includes Metformin, Sitagliptin (Januvia), Lisinopril.",
+    "structured_profile": {
+      "demographics": {
+        "age": 38,
+        "gender": "female"
+      },
+      "conditions": [
+        {
+          "name": "Type 2 Diabetes Mellitus",
+          "synonyms": [
+            "T2D",
+            "NIDDM"
+          ],
+          "duration_years": 10
+        },
+        {
+          "name": "Essential Hypertension",
+          "status": "controlled"
+        },
+        {
+          "name": "Diabetic Peripheral Neuropathy",
+          "status": "mild sensory impairment"
+        }
+      ],
+      "labs": {
+        "HbA1c": {
+          "value": 8.3,
+          "unit": "%",
+          "recent": true
+        },
+        "BMI": {
+          "value": 34.2,
+          "unit": "kg/m2",
+          "recent": true
+        },
+        "eGFR": {
+          "value": 89.1,
+          "unit": "mL/min/1.73m2",
+          "status": "recorded"
+        }
+      },
+      "medications": [
+        {
+          "name": "Metformin",
+          "drug_class": "Biguanide",
+          "dose": "1000mg BID"
+        },
+        {
+          "name": "Sitagliptin (Januvia)",
+          "drug_class": "DPP-4 Inhibitor",
+          "dose": "100mg daily"
+        },
+        {
+          "name": "Lisinopril",
+          "drug_class": "ACE Inhibitor",
+          "dose": "10mg daily"
+        }
+      ],
+      "contraindications_cleared": [
+        "prior insulin exposure",
+        "heart failure / acute coronary events",
+        "active kidney disease"
+      ]
+    }
+  },
+  {
+    "patient_id": "P011",
+    "name": "David Kim",
+    "clinical_text": "David Kim is a 50-year-old male with established Type 2 Diabetes Mellitus. Recent laboratory panel demonstrates an HbA1c of 6.9% and a calculated BMI of 35.6 kg/m2. Patient has been maintained on oral agents and has never required insulin therapy. Renal function is preserved with eGFR 67.6 mL/min/1.73m2. No prior history of myocardial infarction or congestive heart failure. Neurological exam normal with no peripheral sensory deficits. Current regimen includes Metformin.",
+    "structured_profile": {
+      "demographics": {
+        "age": 50,
+        "gender": "male"
+      },
+      "conditions": [
+        {
+          "name": "Type 2 Diabetes Mellitus",
+          "synonyms": [
+            "T2D",
+            "NIDDM"
+          ],
+          "duration_years": 6
+        }
+      ],
+      "labs": {
+        "HbA1c": {
+          "value": 6.9,
+          "unit": "%",
+          "recent": true
+        },
+        "BMI": {
+          "value": 35.6,
+          "unit": "kg/m2",
+          "recent": true
+        },
+        "eGFR": {
+          "value": 67.6,
+          "unit": "mL/min/1.73m2",
+          "status": "recorded"
+        }
+      },
+      "medications": [
+        {
+          "name": "Metformin",
+          "drug_class": "Biguanide",
+          "dose": "1000mg BID"
+        }
+      ],
+      "contraindications_cleared": [
+        "prior insulin exposure",
+        "heart failure / acute coronary events",
+        "active kidney disease"
+      ]
+    }
+  },
+  {
+    "patient_id": "P012",
+    "name": "Grace Hopper",
+    "clinical_text": "Grace Hopper is a 42-year-old female with established Type 2 Diabetes Mellitus. Recent laboratory panel demonstrates an HbA1c of 8.9% and a calculated BMI of 31.9 kg/m2. Patient is currently managed on basal insulin therapy. Recent renal function and eGFR labs are not on file. Medical history is notable for coronary artery disease. Neurological exam normal with no peripheral sensory deficits. Current regimen includes Insulin Glargine (Lantus), Metformin, Lisinopril.",
+    "structured_profile": {
+      "demographics": {
+        "age": 42,
+        "gender": "female"
+      },
+      "conditions": [
+        {
+          "name": "Type 2 Diabetes Mellitus",
+          "synonyms": [
+            "T2D",
+            "NIDDM"
+          ],
+          "duration_years": 7
+        },
+        {
+          "name": "Essential Hypertension",
+          "status": "controlled"
+        },
+        {
+          "name": "Coronary Artery Disease",
+          "status": "stable"
+        }
+      ],
+      "labs": {
+        "HbA1c": {
+          "value": 8.9,
+          "unit": "%",
+          "recent": true
+        },
+        "BMI": {
+          "value": 31.9,
+          "unit": "kg/m2",
+          "recent": true
+        },
+        "eGFR": {
+          "value": null,
+          "unit": "mL/min/1.73m2",
+          "status": "missing"
+        }
+      },
+      "medications": [
+        {
+          "name": "Insulin Glargine (Lantus)",
+          "drug_class": "Long-Acting Insulin",
+          "dose": "20 units QHS"
+        },
+        {
+          "name": "Metformin",
+          "drug_class": "Biguanide",
+          "dose": "1000mg BID"
+        },
+        {
+          "name": "Lisinopril",
+          "drug_class": "ACE Inhibitor",
+          "dose": "10mg daily"
+        }
+      ],
+      "contraindications_cleared": [
+        "active kidney disease"
+      ]
+    }
+  },
+  {
+    "patient_id": "P013",
+    "name": "Henry Higgins",
+    "clinical_text": "Henry Higgins is a 65-year-old male with established Type 2 Diabetes Mellitus. Recent laboratory panel demonstrates an HbA1c of 8.2% and a calculated BMI of 33.0 kg/m2. Patient has been maintained on oral agents and has never required insulin therapy. Renal function is preserved with eGFR 66.5 mL/min/1.73m2. No prior history of myocardial infarction or congestive heart failure. Neurological exam normal with no peripheral sensory deficits. Current regimen includes Metformin, Sitagliptin (Januvia).",
+    "structured_profile": {
+      "demographics": {
+        "age": 65,
+        "gender": "male"
+      },
+      "conditions": [
+        {
+          "name": "Type 2 Diabetes Mellitus",
+          "synonyms": [
+            "T2D",
+            "NIDDM"
+          ],
+          "duration_years": 5
+        }
+      ],
+      "labs": {
+        "HbA1c": {
+          "value": 8.2,
+          "unit": "%",
+          "recent": true
+        },
+        "BMI": {
+          "value": 33.0,
+          "unit": "kg/m2",
+          "recent": true
+        },
+        "eGFR": {
+          "value": 66.5,
+          "unit": "mL/min/1.73m2",
+          "status": "recorded"
+        }
+      },
+      "medications": [
+        {
+          "name": "Metformin",
+          "drug_class": "Biguanide",
+          "dose": "1000mg BID"
+        },
+        {
+          "name": "Sitagliptin (Januvia)",
+          "drug_class": "DPP-4 Inhibitor",
+          "dose": "100mg daily"
+        }
+      ],
+      "contraindications_cleared": [
+        "prior insulin exposure",
+        "heart failure / acute coronary events",
+        "active kidney disease"
+      ]
+    }
+  },
+  {
+    "patient_id": "P014",
+    "name": "Maya Lin",
+    "clinical_text": "Maya Lin is a 36-year-old female with established Type 2 Diabetes Mellitus. Recent laboratory panel demonstrates an HbA1c of 8.8% and a calculated BMI of 36.3 kg/m2. Patient has been maintained on oral agents and has never required insulin therapy. Renal assessment indicates chronic kidney impairment with eGFR of 45.7 mL/min/1.73m2. No prior history of myocardial infarction or congestive heart failure. Neurological exam normal with no peripheral sensory deficits. Current regimen includes Metformin, Lisinopril.",
+    "structured_profile": {
+      "demographics": {
+        "age": 36,
+        "gender": "female"
+      },
+      "conditions": [
+        {
+          "name": "Type 2 Diabetes Mellitus",
+          "synonyms": [
+            "T2D",
+            "NIDDM"
+          ],
+          "duration_years": 3
+        },
+        {
+          "name": "Essential Hypertension",
+          "status": "controlled"
+        },
+        {
+          "name": "Chronic Kidney Disease",
+          "status": "moderate renal impairment"
+        }
+      ],
+      "labs": {
+        "HbA1c": {
+          "value": 8.8,
+          "unit": "%",
+          "recent": true
+        },
+        "BMI": {
+          "value": 36.3,
+          "unit": "kg/m2",
+          "recent": true
+        },
+        "eGFR": {
+          "value": 45.7,
+          "unit": "mL/min/1.73m2",
+          "status": "recorded"
+        }
+      },
+      "medications": [
+        {
+          "name": "Metformin",
+          "drug_class": "Biguanide",
+          "dose": "1000mg BID"
+        },
+        {
+          "name": "Lisinopril",
+          "drug_class": "ACE Inhibitor",
+          "dose": "10mg daily"
+        }
+      ],
+      "contraindications_cleared": [
+        "prior insulin exposure",
+        "heart failure / acute coronary events"
+      ]
+    }
+  },
+  {
+    "patient_id": "P015",
+    "name": "Julian Thorne",
+    "clinical_text": "Julian Thorne is a 58-year-old male with established Type 2 Diabetes Mellitus. Recent laboratory panel demonstrates an HbA1c of 7.7% and a calculated BMI of 29.9 kg/m2. Patient has been maintained on oral agents and has never required insulin therapy. Recent renal function and eGFR labs are not on file. No prior history of myocardial infarction or congestive heart failure. Patient reports bilateral burning sensation and tingling in feet consistent with diabetic peripheral neuropathy. Current regimen includes Metformin.",
+    "structured_profile": {
+      "demographics": {
+        "age": 58,
+        "gender": "male"
+      },
+      "conditions": [
+        {
+          "name": "Type 2 Diabetes Mellitus",
+          "synonyms": [
+            "T2D",
+            "NIDDM"
+          ],
+          "duration_years": 7
+        },
+        {
+          "name": "Diabetic Peripheral Neuropathy",
+          "status": "mild sensory impairment"
+        }
+      ],
+      "labs": {
+        "HbA1c": {
+          "value": 7.7,
+          "unit": "%",
+          "recent": true
+        },
+        "BMI": {
+          "value": 29.9,
+          "unit": "kg/m2",
+          "recent": true
+        },
+        "eGFR": {
+          "value": null,
+          "unit": "mL/min/1.73m2",
+          "status": "missing"
+        }
+      },
+      "medications": [
+        {
+          "name": "Metformin",
+          "drug_class": "Biguanide",
+          "dose": "1000mg BID"
+        }
+      ],
+      "contraindications_cleared": [
+        "prior insulin exposure",
+        "heart failure / acute coronary events",
+        "active kidney disease"
+      ]
+    }
+  },
+  {
+    "patient_id": "P016",
+    "name": "Natalie Dormer",
+    "clinical_text": "Natalie Dormer is a 41-year-old female with established Type 2 Diabetes Mellitus. Recent laboratory panel demonstrates an HbA1c of 7.1% and a calculated BMI of 28.8 kg/m2. Patient is currently managed on basal insulin therapy. Renal function is preserved with eGFR 87.1 mL/min/1.73m2. No prior history of myocardial infarction or congestive heart failure. Neurological exam normal with no peripheral sensory deficits. Current regimen includes Insulin Glargine (Lantus), Metformin, Lisinopril.",
+    "structured_profile": {
+      "demographics": {
+        "age": 41,
+        "gender": "female"
+      },
+      "conditions": [
+        {
+          "name": "Type 2 Diabetes Mellitus",
+          "synonyms": [
+            "T2D",
+            "NIDDM"
+          ],
+          "duration_years": 3
+        },
+        {
+          "name": "Essential Hypertension",
+          "status": "controlled"
+        }
+      ],
+      "labs": {
+        "HbA1c": {
+          "value": 7.1,
+          "unit": "%",
+          "recent": true
+        },
+        "BMI": {
+          "value": 28.8,
+          "unit": "kg/m2",
+          "recent": true
+        },
+        "eGFR": {
+          "value": 87.1,
+          "unit": "mL/min/1.73m2",
+          "status": "recorded"
+        }
+      },
+      "medications": [
+        {
+          "name": "Insulin Glargine (Lantus)",
+          "drug_class": "Long-Acting Insulin",
+          "dose": "20 units QHS"
+        },
+        {
+          "name": "Metformin",
+          "drug_class": "Biguanide",
+          "dose": "1000mg BID"
+        },
+        {
+          "name": "Lisinopril",
+          "drug_class": "ACE Inhibitor",
+          "dose": "10mg daily"
+        }
+      ],
+      "contraindications_cleared": [
+        "heart failure / acute coronary events",
+        "active kidney disease"
+      ]
+    }
+  },
+  {
+    "patient_id": "P017",
+    "name": "Christopher Lee",
+    "clinical_text": "Christopher Lee is a 62-year-old male with established Type 2 Diabetes Mellitus. Recent laboratory panel demonstrates an HbA1c of 8.3% and a calculated BMI of 26.6 kg/m2. Patient has been maintained on oral agents and has never required insulin therapy. Renal function is preserved with eGFR 89.1 mL/min/1.73m2. No prior history of myocardial infarction or congestive heart failure. Neurological exam normal with no peripheral sensory deficits. Current regimen includes Metformin.",
+    "structured_profile": {
+      "demographics": {
+        "age": 62,
+        "gender": "male"
+      },
+      "conditions": [
+        {
+          "name": "Type 2 Diabetes Mellitus",
+          "synonyms": [
+            "T2D",
+            "NIDDM"
+          ],
+          "duration_years": 4
+        }
+      ],
+      "labs": {
+        "HbA1c": {
+          "value": 8.3,
+          "unit": "%",
+          "recent": true
+        },
+        "BMI": {
+          "value": 26.6,
+          "unit": "kg/m2",
+          "recent": true
+        },
+        "eGFR": {
+          "value": 89.1,
+          "unit": "mL/min/1.73m2",
+          "status": "recorded"
+        }
+      },
+      "medications": [
+        {
+          "name": "Metformin",
+          "drug_class": "Biguanide",
+          "dose": "1000mg BID"
+        }
+      ],
+      "contraindications_cleared": [
+        "prior insulin exposure",
+        "heart failure / acute coronary events",
+        "active kidney disease"
+      ]
+    }
+  },
+  {
+    "patient_id": "P018",
+    "name": "Miriam Fox",
+    "clinical_text": "Miriam Fox is a 70-year-old female with established Type 2 Diabetes Mellitus. Recent laboratory panel demonstrates an HbA1c of 7.9% and a calculated BMI of 27.7 kg/m2. Patient has been maintained on oral agents and has never required insulin therapy. Recent renal function and eGFR labs are not on file. Medical history is notable for coronary artery disease. Neurological exam normal with no peripheral sensory deficits. Current regimen includes Metformin, Lisinopril.",
+    "structured_profile": {
+      "demographics": {
+        "age": 70,
+        "gender": "female"
+      },
+      "conditions": [
+        {
+          "name": "Type 2 Diabetes Mellitus",
+          "synonyms": [
+            "T2D",
+            "NIDDM"
+          ],
+          "duration_years": 10
+        },
+        {
+          "name": "Essential Hypertension",
+          "status": "controlled"
+        },
+        {
+          "name": "Coronary Artery Disease",
+          "status": "stable"
+        }
+      ],
+      "labs": {
+        "HbA1c": {
+          "value": 7.9,
+          "unit": "%",
+          "recent": true
+        },
+        "BMI": {
+          "value": 27.7,
+          "unit": "kg/m2",
+          "recent": true
+        },
+        "eGFR": {
+          "value": null,
+          "unit": "mL/min/1.73m2",
+          "status": "missing"
+        }
+      },
+      "medications": [
+        {
+          "name": "Metformin",
+          "drug_class": "Biguanide",
+          "dose": "1000mg BID"
+        },
+        {
+          "name": "Lisinopril",
+          "drug_class": "ACE Inhibitor",
+          "dose": "10mg daily"
+        }
+      ],
+      "contraindications_cleared": [
+        "prior insulin exposure",
+        "active kidney disease"
+      ]
+    }
+  },
+  {
+    "patient_id": "P019",
+    "name": "Alexander Ross",
+    "clinical_text": "Alexander Ross is a 47-year-old male with established Type 2 Diabetes Mellitus. Recent laboratory panel demonstrates an HbA1c of 7.2% and a calculated BMI of 28.4 kg/m2. Patient has been maintained on oral agents and has never required insulin therapy. Renal function is preserved with eGFR 90.4 mL/min/1.73m2. No prior history of myocardial infarction or congestive heart failure. Neurological exam normal with no peripheral sensory deficits. Current regimen includes Metformin, Sitagliptin (Januvia).",
+    "structured_profile": {
+      "demographics": {
+        "age": 47,
+        "gender": "male"
+      },
+      "conditions": [
+        {
+          "name": "Type 2 Diabetes Mellitus",
+          "synonyms": [
+            "T2D",
+            "NIDDM"
+          ],
+          "duration_years": 2
+        }
+      ],
+      "labs": {
+        "HbA1c": {
+          "value": 7.2,
+          "unit": "%",
+          "recent": true
+        },
+        "BMI": {
+          "value": 28.4,
+          "unit": "kg/m2",
+          "recent": true
+        },
+        "eGFR": {
+          "value": 90.4,
+          "unit": "mL/min/1.73m2",
+          "status": "recorded"
+        }
+      },
+      "medications": [
+        {
+          "name": "Metformin",
+          "drug_class": "Biguanide",
+          "dose": "1000mg BID"
+        },
+        {
+          "name": "Sitagliptin (Januvia)",
+          "drug_class": "DPP-4 Inhibitor",
+          "dose": "100mg daily"
+        }
+      ],
+      "contraindications_cleared": [
+        "prior insulin exposure",
+        "heart failure / acute coronary events",
+        "active kidney disease"
+      ]
+    }
+  },
+  {
+    "patient_id": "P020",
+    "name": "Hannah Abbott",
+    "clinical_text": "Hannah Abbott is a 53-year-old female with established Type 2 Diabetes Mellitus. Recent laboratory panel demonstrates an HbA1c of 7.2% and a calculated BMI of 24.9 kg/m2. Patient is currently managed on basal insulin therapy. Renal function is preserved with eGFR 75.4 mL/min/1.73m2. No prior history of myocardial infarction or congestive heart failure. Patient reports bilateral burning sensation and tingling in feet consistent with diabetic peripheral neuropathy. Current regimen includes Insulin Glargine (Lantus), Metformin, Lisinopril.",
+    "structured_profile": {
+      "demographics": {
+        "age": 53,
+        "gender": "female"
+      },
+      "conditions": [
+        {
+          "name": "Type 2 Diabetes Mellitus",
+          "synonyms": [
+            "T2D",
+            "NIDDM"
+          ],
+          "duration_years": 6
+        },
+        {
+          "name": "Essential Hypertension",
+          "status": "controlled"
+        },
+        {
+          "name": "Diabetic Peripheral Neuropathy",
+          "status": "mild sensory impairment"
+        }
+      ],
+      "labs": {
+        "HbA1c": {
+          "value": 7.2,
+          "unit": "%",
+          "recent": true
+        },
+        "BMI": {
+          "value": 24.9,
+          "unit": "kg/m2",
+          "recent": true
+        },
+        "eGFR": {
+          "value": 75.4,
+          "unit": "mL/min/1.73m2",
+          "status": "recorded"
+        }
+      },
+      "medications": [
+        {
+          "name": "Insulin Glargine (Lantus)",
+          "drug_class": "Long-Acting Insulin",
+          "dose": "20 units QHS"
+        },
+        {
+          "name": "Metformin",
+          "drug_class": "Biguanide",
+          "dose": "1000mg BID"
+        },
+        {
+          "name": "Lisinopril",
+          "drug_class": "ACE Inhibitor",
+          "dose": "10mg daily"
+        }
+      ],
+      "contraindications_cleared": [
+        "heart failure / acute coronary events",
+        "active kidney disease"
+      ]
+    }
+  },
+  {
+    "patient_id": "P021",
+    "name": "Victor Stone",
+    "clinical_text": "Victor Stone is a 39-year-old male with established Type 2 Diabetes Mellitus. Recent laboratory panel demonstrates an HbA1c of 6.8% and a calculated BMI of 35.5 kg/m2. Patient has been maintained on oral agents and has never required insulin therapy. Renal assessment indicates chronic kidney impairment with eGFR of 41.1 mL/min/1.73m2. No prior history of myocardial infarction or congestive heart failure. Neurological exam normal with no peripheral sensory deficits. Current regimen includes Metformin.",
+    "structured_profile": {
+      "demographics": {
+        "age": 39,
+        "gender": "male"
+      },
+      "conditions": [
+        {
+          "name": "Type 2 Diabetes Mellitus",
+          "synonyms": [
+            "T2D",
+            "NIDDM"
+          ],
+          "duration_years": 7
+        },
+        {
+          "name": "Chronic Kidney Disease",
+          "status": "moderate renal impairment"
+        }
+      ],
+      "labs": {
+        "HbA1c": {
+          "value": 6.8,
+          "unit": "%",
+          "recent": true
+        },
+        "BMI": {
+          "value": 35.5,
+          "unit": "kg/m2",
+          "recent": true
+        },
+        "eGFR": {
+          "value": 41.1,
+          "unit": "mL/min/1.73m2",
+          "status": "recorded"
+        }
+      },
+      "medications": [
+        {
+          "name": "Metformin",
+          "drug_class": "Biguanide",
+          "dose": "1000mg BID"
+        }
+      ],
+      "contraindications_cleared": [
+        "prior insulin exposure",
+        "heart failure / acute coronary events"
+      ]
+    }
+  },
+  {
+    "patient_id": "P022",
+    "name": "Clara Oswald",
+    "clinical_text": "Clara Oswald is a 44-year-old female with established Type 2 Diabetes Mellitus. Recent laboratory panel demonstrates an HbA1c of 7.2% and a calculated BMI of 30.5 kg/m2. Patient has been maintained on oral agents and has never required insulin therapy. Renal function is preserved with eGFR 94.2 mL/min/1.73m2. No prior history of myocardial infarction or congestive heart failure. Neurological exam normal with no peripheral sensory deficits. Current regimen includes Metformin, Sitagliptin (Januvia), Lisinopril.",
+    "structured_profile": {
+      "demographics": {
+        "age": 44,
+        "gender": "female"
+      },
+      "conditions": [
+        {
+          "name": "Type 2 Diabetes Mellitus",
+          "synonyms": [
+            "T2D",
+            "NIDDM"
+          ],
+          "duration_years": 9
+        },
+        {
+          "name": "Essential Hypertension",
+          "status": "controlled"
+        }
+      ],
+      "labs": {
+        "HbA1c": {
+          "value": 7.2,
+          "unit": "%",
+          "recent": true
+        },
+        "BMI": {
+          "value": 30.5,
+          "unit": "kg/m2",
+          "recent": true
+        },
+        "eGFR": {
+          "value": 94.2,
+          "unit": "mL/min/1.73m2",
+          "status": "recorded"
+        }
+      },
+      "medications": [
+        {
+          "name": "Metformin",
+          "drug_class": "Biguanide",
+          "dose": "1000mg BID"
+        },
+        {
+          "name": "Sitagliptin (Januvia)",
+          "drug_class": "DPP-4 Inhibitor",
+          "dose": "100mg daily"
+        },
+        {
+          "name": "Lisinopril",
+          "drug_class": "ACE Inhibitor",
+          "dose": "10mg daily"
+        }
+      ],
+      "contraindications_cleared": [
+        "prior insulin exposure",
+        "heart failure / acute coronary events",
+        "active kidney disease"
+      ]
+    }
+  },
+  {
+    "patient_id": "P023",
+    "name": "Patrick Stewart",
+    "clinical_text": "Patrick Stewart is a 69-year-old male with established Type 2 Diabetes Mellitus. Recent laboratory panel demonstrates an HbA1c of 7.0% and a calculated BMI of 26.2 kg/m2. Patient has been maintained on oral agents and has never required insulin therapy. Renal function is preserved with eGFR 89.6 mL/min/1.73m2. No prior history of myocardial infarction or congestive heart failure. Neurological exam normal with no peripheral sensory deficits. Current regimen includes Metformin.",
+    "structured_profile": {
+      "demographics": {
+        "age": 69,
+        "gender": "male"
+      },
+      "conditions": [
+        {
+          "name": "Type 2 Diabetes Mellitus",
+          "synonyms": [
+            "T2D",
+            "NIDDM"
+          ],
+          "duration_years": 10
+        }
+      ],
+      "labs": {
+        "HbA1c": {
+          "value": 7.0,
+          "unit": "%",
+          "recent": true
+        },
+        "BMI": {
+          "value": 26.2,
+          "unit": "kg/m2",
+          "recent": true
+        },
+        "eGFR": {
+          "value": 89.6,
+          "unit": "mL/min/1.73m2",
+          "status": "recorded"
+        }
+      },
+      "medications": [
+        {
+          "name": "Metformin",
+          "drug_class": "Biguanide",
+          "dose": "1000mg BID"
+        }
+      ],
+      "contraindications_cleared": [
+        "prior insulin exposure",
+        "heart failure / acute coronary events",
+        "active kidney disease"
+      ]
+    }
+  },
+  {
+    "patient_id": "P024",
+    "name": "Jessica Jones",
+    "clinical_text": "Jessica Jones is a 33-year-old female with established Type 2 Diabetes Mellitus. Recent laboratory panel demonstrates an HbA1c of 7.3% and a calculated BMI of 31.5 kg/m2. Patient is currently managed on basal insulin therapy. Recent renal function and eGFR labs are not on file. Medical history is notable for coronary artery disease. Neurological exam normal with no peripheral sensory deficits. Current regimen includes Insulin Glargine (Lantus), Metformin, Lisinopril.",
+    "structured_profile": {
+      "demographics": {
+        "age": 33,
+        "gender": "female"
+      },
+      "conditions": [
+        {
+          "name": "Type 2 Diabetes Mellitus",
+          "synonyms": [
+            "T2D",
+            "NIDDM"
+          ],
+          "duration_years": 8
+        },
+        {
+          "name": "Essential Hypertension",
+          "status": "controlled"
+        },
+        {
+          "name": "Coronary Artery Disease",
+          "status": "stable"
+        }
+      ],
+      "labs": {
+        "HbA1c": {
+          "value": 7.3,
+          "unit": "%",
+          "recent": true
+        },
+        "BMI": {
+          "value": 31.5,
+          "unit": "kg/m2",
+          "recent": true
+        },
+        "eGFR": {
+          "value": null,
+          "unit": "mL/min/1.73m2",
+          "status": "missing"
+        }
+      },
+      "medications": [
+        {
+          "name": "Insulin Glargine (Lantus)",
+          "drug_class": "Long-Acting Insulin",
+          "dose": "20 units QHS"
+        },
+        {
+          "name": "Metformin",
+          "drug_class": "Biguanide",
+          "dose": "1000mg BID"
+        },
+        {
+          "name": "Lisinopril",
+          "drug_class": "ACE Inhibitor",
+          "dose": "10mg daily"
+        }
+      ],
+      "contraindications_cleared": [
+        "active kidney disease"
+      ]
+    }
+  },
+  {
+    "patient_id": "P025",
+    "name": "Anthony Stark",
+    "clinical_text": "Anthony Stark is a 59-year-old male with established Type 2 Diabetes Mellitus. Recent laboratory panel demonstrates an HbA1c of 7.6% and a calculated BMI of 36.5 kg/m2. Patient has been maintained on oral agents and has never required insulin therapy. Renal function is preserved with eGFR 69.6 mL/min/1.73m2. No prior history of myocardial infarction or congestive heart failure. Patient reports bilateral burning sensation and tingling in feet consistent with diabetic peripheral neuropathy. Current regimen includes Metformin, Sitagliptin (Januvia).",
+    "structured_profile": {
+      "demographics": {
+        "age": 59,
+        "gender": "male"
+      },
+      "conditions": [
+        {
+          "name": "Type 2 Diabetes Mellitus",
+          "synonyms": [
+            "T2D",
+            "NIDDM"
+          ],
+          "duration_years": 9
+        },
+        {
+          "name": "Diabetic Peripheral Neuropathy",
+          "status": "mild sensory impairment"
+        }
+      ],
+      "labs": {
+        "HbA1c": {
+          "value": 7.6,
+          "unit": "%",
+          "recent": true
+        },
+        "BMI": {
+          "value": 36.5,
+          "unit": "kg/m2",
+          "recent": true
+        },
+        "eGFR": {
+          "value": 69.6,
+          "unit": "mL/min/1.73m2",
+          "status": "recorded"
+        }
+      },
+      "medications": [
+        {
+          "name": "Metformin",
+          "drug_class": "Biguanide",
+          "dose": "1000mg BID"
+        },
+        {
+          "name": "Sitagliptin (Januvia)",
+          "drug_class": "DPP-4 Inhibitor",
+          "dose": "100mg daily"
+        }
+      ],
+      "contraindications_cleared": [
+        "prior insulin exposure",
+        "heart failure / acute coronary events",
+        "active kidney disease"
+      ]
+    }
+  },
+  {
+    "patient_id": "P026",
+    "name": "Barbara Gordon",
+    "clinical_text": "Barbara Gordon is a 46-year-old female with established Type 2 Diabetes Mellitus. Recent laboratory panel demonstrates an HbA1c of 6.9% and a calculated BMI of 25.1 kg/m2. Patient has been maintained on oral agents and has never required insulin therapy. Renal function is preserved with eGFR 68.6 mL/min/1.73m2. No prior history of myocardial infarction or congestive heart failure. Neurological exam normal with no peripheral sensory deficits. Current regimen includes Metformin, Lisinopril.",
+    "structured_profile": {
+      "demographics": {
+        "age": 46,
+        "gender": "female"
+      },
+      "conditions": [
+        {
+          "name": "Type 2 Diabetes Mellitus",
+          "synonyms": [
+            "T2D",
+            "NIDDM"
+          ],
+          "duration_years": 4
+        },
+        {
+          "name": "Essential Hypertension",
+          "status": "controlled"
+        }
+      ],
+      "labs": {
+        "HbA1c": {
+          "value": 6.9,
+          "unit": "%",
+          "recent": true
+        },
+        "BMI": {
+          "value": 25.1,
+          "unit": "kg/m2",
+          "recent": true
+        },
+        "eGFR": {
+          "value": 68.6,
+          "unit": "mL/min/1.73m2",
+          "status": "recorded"
+        }
+      },
+      "medications": [
+        {
+          "name": "Metformin",
+          "drug_class": "Biguanide",
+          "dose": "1000mg BID"
+        },
+        {
+          "name": "Lisinopril",
+          "drug_class": "ACE Inhibitor",
+          "dose": "10mg daily"
+        }
+      ],
+      "contraindications_cleared": [
+        "prior insulin exposure",
+        "heart failure / acute coronary events",
+        "active kidney disease"
+      ]
+    }
+  },
+  {
+    "patient_id": "P027",
+    "name": "Jonathan Kent",
+    "clinical_text": "Jonathan Kent is a 51-year-old male with established Type 2 Diabetes Mellitus. Recent laboratory panel demonstrates an HbA1c of 8.8% and a calculated BMI of 29.6 kg/m2. Patient has been maintained on oral agents and has never required insulin therapy. Recent renal function and eGFR labs are not on file. No prior history of myocardial infarction or congestive heart failure. Neurological exam normal with no peripheral sensory deficits. Current regimen includes Metformin.",
+    "structured_profile": {
+      "demographics": {
+        "age": 51,
+        "gender": "male"
+      },
+      "conditions": [
+        {
+          "name": "Type 2 Diabetes Mellitus",
+          "synonyms": [
+            "T2D",
+            "NIDDM"
+          ],
+          "duration_years": 3
+        }
+      ],
+      "labs": {
+        "HbA1c": {
+          "value": 8.8,
+          "unit": "%",
+          "recent": true
+        },
+        "BMI": {
+          "value": 29.6,
+          "unit": "kg/m2",
+          "recent": true
+        },
+        "eGFR": {
+          "value": null,
+          "unit": "mL/min/1.73m2",
+          "status": "missing"
+        }
+      },
+      "medications": [
+        {
+          "name": "Metformin",
+          "drug_class": "Biguanide",
+          "dose": "1000mg BID"
+        }
+      ],
+      "contraindications_cleared": [
+        "prior insulin exposure",
+        "heart failure / acute coronary events",
+        "active kidney disease"
+      ]
+    }
+  },
+  {
+    "patient_id": "P028",
+    "name": "Eleanor Vance",
+    "clinical_text": "Eleanor Vance is a 63-year-old female with established Type 2 Diabetes Mellitus. Recent laboratory panel demonstrates an HbA1c of 7.7% and a calculated BMI of 31.7 kg/m2. Patient is currently managed on basal insulin therapy. Renal assessment indicates chronic kidney impairment with eGFR of 39.5 mL/min/1.73m2. No prior history of myocardial infarction or congestive heart failure. Neurological exam normal with no peripheral sensory deficits. Current regimen includes Insulin Glargine (Lantus), Metformin, Lisinopril.",
+    "structured_profile": {
+      "demographics": {
+        "age": 63,
+        "gender": "female"
+      },
+      "conditions": [
+        {
+          "name": "Type 2 Diabetes Mellitus",
+          "synonyms": [
+            "T2D",
+            "NIDDM"
+          ],
+          "duration_years": 6
+        },
+        {
+          "name": "Essential Hypertension",
+          "status": "controlled"
+        },
+        {
+          "name": "Chronic Kidney Disease",
+          "status": "moderate renal impairment"
+        }
+      ],
+      "labs": {
+        "HbA1c": {
+          "value": 7.7,
+          "unit": "%",
+          "recent": true
+        },
+        "BMI": {
+          "value": 31.7,
+          "unit": "kg/m2",
+          "recent": true
+        },
+        "eGFR": {
+          "value": 39.5,
+          "unit": "mL/min/1.73m2",
+          "status": "recorded"
+        }
+      },
+      "medications": [
+        {
+          "name": "Insulin Glargine (Lantus)",
+          "drug_class": "Long-Acting Insulin",
+          "dose": "20 units QHS"
+        },
+        {
+          "name": "Metformin",
+          "drug_class": "Biguanide",
+          "dose": "1000mg BID"
+        },
+        {
+          "name": "Lisinopril",
+          "drug_class": "ACE Inhibitor",
+          "dose": "10mg daily"
+        }
+      ],
+      "contraindications_cleared": [
+        "heart failure / acute coronary events"
+      ]
+    }
+  },
+  {
+    "patient_id": "P029",
+    "name": "Benjamin Sisko",
+    "clinical_text": "Benjamin Sisko is a 40-year-old male with established Type 2 Diabetes Mellitus. Recent laboratory panel demonstrates an HbA1c of 9.3% and a calculated BMI of 34.8 kg/m2. Patient has been maintained on oral agents and has never required insulin therapy. Renal function is preserved with eGFR 65.4 mL/min/1.73m2. No prior history of myocardial infarction or congestive heart failure. Neurological exam normal with no peripheral sensory deficits. Current regimen includes Metformin.",
+    "structured_profile": {
+      "demographics": {
+        "age": 40,
+        "gender": "male"
+      },
+      "conditions": [
+        {
+          "name": "Type 2 Diabetes Mellitus",
+          "synonyms": [
+            "T2D",
+            "NIDDM"
+          ],
+          "duration_years": 3
+        }
+      ],
+      "labs": {
+        "HbA1c": {
+          "value": 9.3,
+          "unit": "%",
+          "recent": true
+        },
+        "BMI": {
+          "value": 34.8,
+          "unit": "kg/m2",
+          "recent": true
+        },
+        "eGFR": {
+          "value": 65.4,
+          "unit": "mL/min/1.73m2",
+          "status": "recorded"
+        }
+      },
+      "medications": [
+        {
+          "name": "Metformin",
+          "drug_class": "Biguanide",
+          "dose": "1000mg BID"
+        }
+      ],
+      "contraindications_cleared": [
+        "prior insulin exposure",
+        "heart failure / acute coronary events",
+        "active kidney disease"
+      ]
+    }
+  },
+  {
+    "patient_id": "P030",
+    "name": "Rachel Green",
+    "clinical_text": "Rachel Green is a 54-year-old female with established Type 2 Diabetes Mellitus. Recent laboratory panel demonstrates an HbA1c of 8.5% and a calculated BMI of 30.9 kg/m2. Patient has been maintained on oral agents and has never required insulin therapy. Recent renal function and eGFR labs are not on file. Medical history is notable for coronary artery disease. Patient reports bilateral burning sensation and tingling in feet consistent with diabetic peripheral neuropathy. Current regimen includes Metformin, Lisinopril.",
+    "structured_profile": {
+      "demographics": {
+        "age": 54,
+        "gender": "female"
+      },
+      "conditions": [
+        {
+          "name": "Type 2 Diabetes Mellitus",
+          "synonyms": [
+            "T2D",
+            "NIDDM"
+          ],
+          "duration_years": 6
+        },
+        {
+          "name": "Essential Hypertension",
+          "status": "controlled"
+        },
+        {
+          "name": "Coronary Artery Disease",
+          "status": "stable"
+        },
+        {
+          "name": "Diabetic Peripheral Neuropathy",
+          "status": "mild sensory impairment"
+        }
+      ],
+      "labs": {
+        "HbA1c": {
+          "value": 8.5,
+          "unit": "%",
+          "recent": true
+        },
+        "BMI": {
+          "value": 30.9,
+          "unit": "kg/m2",
+          "recent": true
+        },
+        "eGFR": {
+          "value": null,
+          "unit": "mL/min/1.73m2",
+          "status": "missing"
+        }
+      },
+      "medications": [
+        {
+          "name": "Metformin",
+          "drug_class": "Biguanide",
+          "dose": "1000mg BID"
+        },
+        {
+          "name": "Lisinopril",
+          "drug_class": "ACE Inhibitor",
+          "dose": "10mg daily"
+        }
+      ],
+      "contraindications_cleared": [
+        "prior insulin exposure",
+        "active kidney disease"
+      ]
+    }
+  },
+  {
+    "patient_id": "P031",
+    "name": "Ethan Hunt",
+    "clinical_text": "Ethan Hunt is a 37-year-old male with established Type 2 Diabetes Mellitus. Recent laboratory panel demonstrates an HbA1c of 8.8% and a calculated BMI of 28.6 kg/m2. Patient has been maintained on oral agents and has never required insulin therapy. Renal function is preserved with eGFR 74.7 mL/min/1.73m2. No prior history of myocardial infarction or congestive heart failure. Neurological exam normal with no peripheral sensory deficits. Current regimen includes Metformin, Sitagliptin (Januvia).",
+    "structured_profile": {
+      "demographics": {
+        "age": 37,
+        "gender": "male"
+      },
+      "conditions": [
+        {
+          "name": "Type 2 Diabetes Mellitus",
+          "synonyms": [
+            "T2D",
+            "NIDDM"
+          ],
+          "duration_years": 4
+        }
+      ],
+      "labs": {
+        "HbA1c": {
+          "value": 8.8,
+          "unit": "%",
+          "recent": true
+        },
+        "BMI": {
+          "value": 28.6,
+          "unit": "kg/m2",
+          "recent": true
+        },
+        "eGFR": {
+          "value": 74.7,
+          "unit": "mL/min/1.73m2",
+          "status": "recorded"
+        }
+      },
+      "medications": [
+        {
+          "name": "Metformin",
+          "drug_class": "Biguanide",
+          "dose": "1000mg BID"
+        },
+        {
+          "name": "Sitagliptin (Januvia)",
+          "drug_class": "DPP-4 Inhibitor",
+          "dose": "100mg daily"
+        }
+      ],
+      "contraindications_cleared": [
+        "prior insulin exposure",
+        "heart failure / acute coronary events",
+        "active kidney disease"
+      ]
+    }
+  },
+  {
+    "patient_id": "P032",
+    "name": "Monica Geller",
+    "clinical_text": "Monica Geller is a 49-year-old female with established Type 2 Diabetes Mellitus. Recent laboratory panel demonstrates an HbA1c of 7.9% and a calculated BMI of 35.9 kg/m2. Patient is currently managed on basal insulin therapy. Renal function is preserved with eGFR 93.9 mL/min/1.73m2. No prior history of myocardial infarction or congestive heart failure. Neurological exam normal with no peripheral sensory deficits. Current regimen includes Insulin Glargine (Lantus), Metformin, Lisinopril.",
+    "structured_profile": {
+      "demographics": {
+        "age": 49,
+        "gender": "female"
+      },
+      "conditions": [
+        {
+          "name": "Type 2 Diabetes Mellitus",
+          "synonyms": [
+            "T2D",
+            "NIDDM"
+          ],
+          "duration_years": 6
+        },
+        {
+          "name": "Essential Hypertension",
+          "status": "controlled"
+        }
+      ],
+      "labs": {
+        "HbA1c": {
+          "value": 7.9,
+          "unit": "%",
+          "recent": true
+        },
+        "BMI": {
+          "value": 35.9,
+          "unit": "kg/m2",
+          "recent": true
+        },
+        "eGFR": {
+          "value": 93.9,
+          "unit": "mL/min/1.73m2",
+          "status": "recorded"
+        }
+      },
+      "medications": [
+        {
+          "name": "Insulin Glargine (Lantus)",
+          "drug_class": "Long-Acting Insulin",
+          "dose": "20 units QHS"
+        },
+        {
+          "name": "Metformin",
+          "drug_class": "Biguanide",
+          "dose": "1000mg BID"
+        },
+        {
+          "name": "Lisinopril",
+          "drug_class": "ACE Inhibitor",
+          "dose": "10mg daily"
+        }
+      ],
+      "contraindications_cleared": [
+        "heart failure / acute coronary events",
+        "active kidney disease"
+      ]
+    }
+  },
+  {
+    "patient_id": "P033",
+    "name": "James Gordon",
+    "clinical_text": "James Gordon is a 61-year-old male with established Type 2 Diabetes Mellitus. Recent laboratory panel demonstrates an HbA1c of 9.3% and a calculated BMI of 33.6 kg/m2. Patient has been maintained on oral agents and has never required insulin therapy. Recent renal function and eGFR labs are not on file. No prior history of myocardial infarction or congestive heart failure. Neurological exam normal with no peripheral sensory deficits. Current regimen includes Metformin.",
+    "structured_profile": {
+      "demographics": {
+        "age": 61,
+        "gender": "male"
+      },
+      "conditions": [
+        {
+          "name": "Type 2 Diabetes Mellitus",
+          "synonyms": [
+            "T2D",
+            "NIDDM"
+          ],
+          "duration_years": 10
+        }
+      ],
+      "labs": {
+        "HbA1c": {
+          "value": 9.3,
+          "unit": "%",
+          "recent": true
+        },
+        "BMI": {
+          "value": 33.6,
+          "unit": "kg/m2",
+          "recent": true
+        },
+        "eGFR": {
+          "value": null,
+          "unit": "mL/min/1.73m2",
+          "status": "missing"
+        }
+      },
+      "medications": [
+        {
+          "name": "Metformin",
+          "drug_class": "Biguanide",
+          "dose": "1000mg BID"
+        }
+      ],
+      "contraindications_cleared": [
+        "prior insulin exposure",
+        "heart failure / acute coronary events",
+        "active kidney disease"
+      ]
+    }
+  },
+  {
+    "patient_id": "P034",
+    "name": "Lily Evans",
+    "clinical_text": "Lily Evans is a 28-year-old female with established Type 2 Diabetes Mellitus. Recent laboratory panel demonstrates an HbA1c of 9.2% and a calculated BMI of 34.9 kg/m2. Patient has been maintained on oral agents and has never required insulin therapy. Renal function is preserved with eGFR 74.8 mL/min/1.73m2. No prior history of myocardial infarction or congestive heart failure. Neurological exam normal with no peripheral sensory deficits. Current regimen includes Metformin, Sitagliptin (Januvia), Lisinopril.",
+    "structured_profile": {
+      "demographics": {
+        "age": 28,
+        "gender": "female"
+      },
+      "conditions": [
+        {
+          "name": "Type 2 Diabetes Mellitus",
+          "synonyms": [
+            "T2D",
+            "NIDDM"
+          ],
+          "duration_years": 10
+        },
+        {
+          "name": "Essential Hypertension",
+          "status": "controlled"
+        }
+      ],
+      "labs": {
+        "HbA1c": {
+          "value": 9.2,
+          "unit": "%",
+          "recent": true
+        },
+        "BMI": {
+          "value": 34.9,
+          "unit": "kg/m2",
+          "recent": true
+        },
+        "eGFR": {
+          "value": 74.8,
+          "unit": "mL/min/1.73m2",
+          "status": "recorded"
+        }
+      },
+      "medications": [
+        {
+          "name": "Metformin",
+          "drug_class": "Biguanide",
+          "dose": "1000mg BID"
+        },
+        {
+          "name": "Sitagliptin (Januvia)",
+          "drug_class": "DPP-4 Inhibitor",
+          "dose": "100mg daily"
+        },
+        {
+          "name": "Lisinopril",
+          "drug_class": "ACE Inhibitor",
+          "dose": "10mg daily"
+        }
+      ],
+      "contraindications_cleared": [
+        "prior insulin exposure",
+        "heart failure / acute coronary events",
+        "active kidney disease"
+      ]
+    }
+  },
+  {
+    "patient_id": "P035",
+    "name": "Richard Castle",
+    "clinical_text": "Richard Castle is a 66-year-old male with established Type 2 Diabetes Mellitus. Recent laboratory panel demonstrates an HbA1c of 8.3% and a calculated BMI of 26.3 kg/m2. Patient has been maintained on oral agents and has never required insulin therapy. Renal assessment indicates chronic kidney impairment with eGFR of 44.2 mL/min/1.73m2. No prior history of myocardial infarction or congestive heart failure. Patient reports bilateral burning sensation and tingling in feet consistent with diabetic peripheral neuropathy. Current regimen includes Metformin.",
+    "structured_profile": {
+      "demographics": {
+        "age": 66,
+        "gender": "male"
+      },
+      "conditions": [
+        {
+          "name": "Type 2 Diabetes Mellitus",
+          "synonyms": [
+            "T2D",
+            "NIDDM"
+          ],
+          "duration_years": 10
+        },
+        {
+          "name": "Chronic Kidney Disease",
+          "status": "moderate renal impairment"
+        },
+        {
+          "name": "Diabetic Peripheral Neuropathy",
+          "status": "mild sensory impairment"
+        }
+      ],
+      "labs": {
+        "HbA1c": {
+          "value": 8.3,
+          "unit": "%",
+          "recent": true
+        },
+        "BMI": {
+          "value": 26.3,
+          "unit": "kg/m2",
+          "recent": true
+        },
+        "eGFR": {
+          "value": 44.2,
+          "unit": "mL/min/1.73m2",
+          "status": "recorded"
+        }
+      },
+      "medications": [
+        {
+          "name": "Metformin",
+          "drug_class": "Biguanide",
+          "dose": "1000mg BID"
+        }
+      ],
+      "contraindications_cleared": [
+        "prior insulin exposure",
+        "heart failure / acute coronary events"
+      ]
+    }
+  },
+  {
+    "patient_id": "P036",
+    "name": "Dana Scully",
+    "clinical_text": "Dana Scully is a 43-year-old female with established Type 2 Diabetes Mellitus. Recent laboratory panel demonstrates an HbA1c of 9.3% and a calculated BMI of 35.6 kg/m2. Patient is currently managed on basal insulin therapy. Recent renal function and eGFR labs are not on file. Medical history is notable for coronary artery disease. Neurological exam normal with no peripheral sensory deficits. Current regimen includes Insulin Glargine (Lantus), Metformin, Lisinopril.",
+    "structured_profile": {
+      "demographics": {
+        "age": 43,
+        "gender": "female"
+      },
+      "conditions": [
+        {
+          "name": "Type 2 Diabetes Mellitus",
+          "synonyms": [
+            "T2D",
+            "NIDDM"
+          ],
+          "duration_years": 2
+        },
+        {
+          "name": "Essential Hypertension",
+          "status": "controlled"
+        },
+        {
+          "name": "Coronary Artery Disease",
+          "status": "stable"
+        }
+      ],
+      "labs": {
+        "HbA1c": {
+          "value": 9.3,
+          "unit": "%",
+          "recent": true
+        },
+        "BMI": {
+          "value": 35.6,
+          "unit": "kg/m2",
+          "recent": true
+        },
+        "eGFR": {
+          "value": null,
+          "unit": "mL/min/1.73m2",
+          "status": "missing"
+        }
+      },
+      "medications": [
+        {
+          "name": "Insulin Glargine (Lantus)",
+          "drug_class": "Long-Acting Insulin",
+          "dose": "20 units QHS"
+        },
+        {
+          "name": "Metformin",
+          "drug_class": "Biguanide",
+          "dose": "1000mg BID"
+        },
+        {
+          "name": "Lisinopril",
+          "drug_class": "ACE Inhibitor",
+          "dose": "10mg daily"
+        }
+      ],
+      "contraindications_cleared": [
+        "active kidney disease"
+      ]
+    }
+  },
+  {
+    "patient_id": "P037",
+    "name": "Fox Mulder",
+    "clinical_text": "Fox Mulder is a 57-year-old male with established Type 2 Diabetes Mellitus. Recent laboratory panel demonstrates an HbA1c of 8.3% and a calculated BMI of 30.4 kg/m2. Patient has been maintained on oral agents and has never required insulin therapy. Renal function is preserved with eGFR 68.7 mL/min/1.73m2. No prior history of myocardial infarction or congestive heart failure. Neurological exam normal with no peripheral sensory deficits. Current regimen includes Metformin, Sitagliptin (Januvia).",
+    "structured_profile": {
+      "demographics": {
+        "age": 57,
+        "gender": "male"
+      },
+      "conditions": [
+        {
+          "name": "Type 2 Diabetes Mellitus",
+          "synonyms": [
+            "T2D",
+            "NIDDM"
+          ],
+          "duration_years": 7
+        }
+      ],
+      "labs": {
+        "HbA1c": {
+          "value": 8.3,
+          "unit": "%",
+          "recent": true
+        },
+        "BMI": {
+          "value": 30.4,
+          "unit": "kg/m2",
+          "recent": true
+        },
+        "eGFR": {
+          "value": 68.7,
+          "unit": "mL/min/1.73m2",
+          "status": "recorded"
+        }
+      },
+      "medications": [
+        {
+          "name": "Metformin",
+          "drug_class": "Biguanide",
+          "dose": "1000mg BID"
+        },
+        {
+          "name": "Sitagliptin (Januvia)",
+          "drug_class": "DPP-4 Inhibitor",
+          "dose": "100mg daily"
+        }
+      ],
+      "contraindications_cleared": [
+        "prior insulin exposure",
+        "heart failure / acute coronary events",
+        "active kidney disease"
+      ]
+    }
+  },
+  {
+    "patient_id": "P038",
+    "name": "Donna Noble",
+    "clinical_text": "Donna Noble is a 52-year-old female with established Type 2 Diabetes Mellitus. Recent laboratory panel demonstrates an HbA1c of 9.1% and a calculated BMI of 34.5 kg/m2. Patient has been maintained on oral agents and has never required insulin therapy. Renal function is preserved with eGFR 75.1 mL/min/1.73m2. No prior history of myocardial infarction or congestive heart failure. Neurological exam normal with no peripheral sensory deficits. Current regimen includes Metformin, Lisinopril.",
+    "structured_profile": {
+      "demographics": {
+        "age": 52,
+        "gender": "female"
+      },
+      "conditions": [
+        {
+          "name": "Type 2 Diabetes Mellitus",
+          "synonyms": [
+            "T2D",
+            "NIDDM"
+          ],
+          "duration_years": 2
+        },
+        {
+          "name": "Essential Hypertension",
+          "status": "controlled"
+        }
+      ],
+      "labs": {
+        "HbA1c": {
+          "value": 9.1,
+          "unit": "%",
+          "recent": true
+        },
+        "BMI": {
+          "value": 34.5,
+          "unit": "kg/m2",
+          "recent": true
+        },
+        "eGFR": {
+          "value": 75.1,
+          "unit": "mL/min/1.73m2",
+          "status": "recorded"
+        }
+      },
+      "medications": [
+        {
+          "name": "Metformin",
+          "drug_class": "Biguanide",
+          "dose": "1000mg BID"
+        },
+        {
+          "name": "Lisinopril",
+          "drug_class": "ACE Inhibitor",
+          "dose": "10mg daily"
+        }
+      ],
+      "contraindications_cleared": [
+        "prior insulin exposure",
+        "heart failure / acute coronary events",
+        "active kidney disease"
+      ]
+    }
+  },
+  {
+    "patient_id": "P039",
+    "name": "Charles Xavier",
+    "clinical_text": "Charles Xavier is a 64-year-old male with established Type 2 Diabetes Mellitus. Recent laboratory panel demonstrates an HbA1c of 7.3% and a calculated BMI of 31.3 kg/m2. Patient has been maintained on oral agents and has never required insulin therapy. Recent renal function and eGFR labs are not on file. No prior history of myocardial infarction or congestive heart failure. Neurological exam normal with no peripheral sensory deficits. Current regimen includes Metformin.",
+    "structured_profile": {
+      "demographics": {
+        "age": 64,
+        "gender": "male"
+      },
+      "conditions": [
+        {
+          "name": "Type 2 Diabetes Mellitus",
+          "synonyms": [
+            "T2D",
+            "NIDDM"
+          ],
+          "duration_years": 3
+        }
+      ],
+      "labs": {
+        "HbA1c": {
+          "value": 7.3,
+          "unit": "%",
+          "recent": true
+        },
+        "BMI": {
+          "value": 31.3,
+          "unit": "kg/m2",
+          "recent": true
+        },
+        "eGFR": {
+          "value": null,
+          "unit": "mL/min/1.73m2",
+          "status": "missing"
+        }
+      },
+      "medications": [
+        {
+          "name": "Metformin",
+          "drug_class": "Biguanide",
+          "dose": "1000mg BID"
+        }
+      ],
+      "contraindications_cleared": [
+        "prior insulin exposure",
+        "heart failure / acute coronary events",
+        "active kidney disease"
+      ]
+    }
+  },
+  {
+    "patient_id": "P040",
+    "name": "Peggy Carter",
+    "clinical_text": "Peggy Carter is a 35-year-old female with established Type 2 Diabetes Mellitus. Recent laboratory panel demonstrates an HbA1c of 6.8% and a calculated BMI of 30.3 kg/m2. Patient is currently managed on basal insulin therapy. Renal function is preserved with eGFR 67.3 mL/min/1.73m2. No prior history of myocardial infarction or congestive heart failure. Patient reports bilateral burning sensation and tingling in feet consistent with diabetic peripheral neuropathy. Current regimen includes Insulin Glargine (Lantus), Metformin, Lisinopril.",
+    "structured_profile": {
+      "demographics": {
+        "age": 35,
+        "gender": "female"
+      },
+      "conditions": [
+        {
+          "name": "Type 2 Diabetes Mellitus",
+          "synonyms": [
+            "T2D",
+            "NIDDM"
+          ],
+          "duration_years": 10
+        },
+        {
+          "name": "Essential Hypertension",
+          "status": "controlled"
+        },
+        {
+          "name": "Diabetic Peripheral Neuropathy",
+          "status": "mild sensory impairment"
+        }
+      ],
+      "labs": {
+        "HbA1c": {
+          "value": 6.8,
+          "unit": "%",
+          "recent": true
+        },
+        "BMI": {
+          "value": 30.3,
+          "unit": "kg/m2",
+          "recent": true
+        },
+        "eGFR": {
+          "value": 67.3,
+          "unit": "mL/min/1.73m2",
+          "status": "recorded"
+        }
+      },
+      "medications": [
+        {
+          "name": "Insulin Glargine (Lantus)",
+          "drug_class": "Long-Acting Insulin",
+          "dose": "20 units QHS"
+        },
+        {
+          "name": "Metformin",
+          "drug_class": "Biguanide",
+          "dose": "1000mg BID"
+        },
+        {
+          "name": "Lisinopril",
+          "drug_class": "ACE Inhibitor",
+          "dose": "10mg daily"
+        }
+      ],
+      "contraindications_cleared": [
+        "heart failure / acute coronary events",
+        "active kidney disease"
+      ]
+    }
+  },
+  {
+    "patient_id": "P041",
+    "name": "Luke Skywalker",
+    "clinical_text": "Luke Skywalker is a 48-year-old male with established Type 2 Diabetes Mellitus. Recent laboratory panel demonstrates an HbA1c of 8.7% and a calculated BMI of 26.0 kg/m2. Patient has been maintained on oral agents and has never required insulin therapy. Renal function is preserved with eGFR 80.7 mL/min/1.73m2. No prior history of myocardial infarction or congestive heart failure. Neurological exam normal with no peripheral sensory deficits. Current regimen includes Metformin.",
+    "structured_profile": {
+      "demographics": {
+        "age": 48,
+        "gender": "male"
+      },
+      "conditions": [
+        {
+          "name": "Type 2 Diabetes Mellitus",
+          "synonyms": [
+            "T2D",
+            "NIDDM"
+          ],
+          "duration_years": 10
+        }
+      ],
+      "labs": {
+        "HbA1c": {
+          "value": 8.7,
+          "unit": "%",
+          "recent": true
+        },
+        "BMI": {
+          "value": 26.0,
+          "unit": "kg/m2",
+          "recent": true
+        },
+        "eGFR": {
+          "value": 80.7,
+          "unit": "mL/min/1.73m2",
+          "status": "recorded"
+        }
+      },
+      "medications": [
+        {
+          "name": "Metformin",
+          "drug_class": "Biguanide",
+          "dose": "1000mg BID"
+        }
+      ],
+      "contraindications_cleared": [
+        "prior insulin exposure",
+        "heart failure / acute coronary events",
+        "active kidney disease"
+      ]
+    }
+  },
+  {
+    "patient_id": "P042",
+    "name": "Jean Grey",
+    "clinical_text": "Jean Grey is a 55-year-old female with established Type 2 Diabetes Mellitus. Recent laboratory panel demonstrates an HbA1c of 7.1% and a calculated BMI of 30.8 kg/m2. Patient has been maintained on oral agents and has never required insulin therapy. Renal assessment indicates chronic kidney impairment with eGFR of 41.7 mL/min/1.73m2. Medical history is notable for coronary artery disease. Neurological exam normal with no peripheral sensory deficits. Current regimen includes Metformin, Lisinopril.",
+    "structured_profile": {
+      "demographics": {
+        "age": 55,
+        "gender": "female"
+      },
+      "conditions": [
+        {
+          "name": "Type 2 Diabetes Mellitus",
+          "synonyms": [
+            "T2D",
+            "NIDDM"
+          ],
+          "duration_years": 5
+        },
+        {
+          "name": "Essential Hypertension",
+          "status": "controlled"
+        },
+        {
+          "name": "Chronic Kidney Disease",
+          "status": "moderate renal impairment"
+        },
+        {
+          "name": "Coronary Artery Disease",
+          "status": "stable"
+        }
+      ],
+      "labs": {
+        "HbA1c": {
+          "value": 7.1,
+          "unit": "%",
+          "recent": true
+        },
+        "BMI": {
+          "value": 30.8,
+          "unit": "kg/m2",
+          "recent": true
+        },
+        "eGFR": {
+          "value": 41.7,
+          "unit": "mL/min/1.73m2",
+          "status": "recorded"
+        }
+      },
+      "medications": [
+        {
+          "name": "Metformin",
+          "drug_class": "Biguanide",
+          "dose": "1000mg BID"
+        },
+        {
+          "name": "Lisinopril",
+          "drug_class": "ACE Inhibitor",
+          "dose": "10mg daily"
+        }
+      ],
+      "contraindications_cleared": [
+        "prior insulin exposure"
+      ]
+    }
+  },
+  {
+    "patient_id": "P043",
+    "name": "Bruce Banner",
+    "clinical_text": "Bruce Banner is a 69-year-old male with established Type 2 Diabetes Mellitus. Recent laboratory panel demonstrates an HbA1c of 9.2% and a calculated BMI of 33.6 kg/m2. Patient has been maintained on oral agents and has never required insulin therapy. Renal function is preserved with eGFR 87.8 mL/min/1.73m2. No prior history of myocardial infarction or congestive heart failure. Neurological exam normal with no peripheral sensory deficits. Current regimen includes Metformin, Sitagliptin (Januvia).",
+    "structured_profile": {
+      "demographics": {
+        "age": 69,
+        "gender": "male"
+      },
+      "conditions": [
+        {
+          "name": "Type 2 Diabetes Mellitus",
+          "synonyms": [
+            "T2D",
+            "NIDDM"
+          ],
+          "duration_years": 6
+        }
+      ],
+      "labs": {
+        "HbA1c": {
+          "value": 9.2,
+          "unit": "%",
+          "recent": true
+        },
+        "BMI": {
+          "value": 33.6,
+          "unit": "kg/m2",
+          "recent": true
+        },
+        "eGFR": {
+          "value": 87.8,
+          "unit": "mL/min/1.73m2",
+          "status": "recorded"
+        }
+      },
+      "medications": [
+        {
+          "name": "Metformin",
+          "drug_class": "Biguanide",
+          "dose": "1000mg BID"
+        },
+        {
+          "name": "Sitagliptin (Januvia)",
+          "drug_class": "DPP-4 Inhibitor",
+          "dose": "100mg daily"
+        }
+      ],
+      "contraindications_cleared": [
+        "prior insulin exposure",
+        "heart failure / acute coronary events",
+        "active kidney disease"
+      ]
+    }
+  },
+  {
+    "patient_id": "P044",
+    "name": "Wanda Maximoff",
+    "clinical_text": "Wanda Maximoff is a 31-year-old female with established Type 2 Diabetes Mellitus. Recent laboratory panel demonstrates an HbA1c of 7.7% and a calculated BMI of 32.6 kg/m2. Patient is currently managed on basal insulin therapy. Renal function is preserved with eGFR 77.3 mL/min/1.73m2. No prior history of myocardial infarction or congestive heart failure. Neurological exam normal with no peripheral sensory deficits. Current regimen includes Insulin Glargine (Lantus), Metformin, Lisinopril.",
+    "structured_profile": {
+      "demographics": {
+        "age": 31,
+        "gender": "female"
+      },
+      "conditions": [
+        {
+          "name": "Type 2 Diabetes Mellitus",
+          "synonyms": [
+            "T2D",
+            "NIDDM"
+          ],
+          "duration_years": 10
+        },
+        {
+          "name": "Essential Hypertension",
+          "status": "controlled"
+        }
+      ],
+      "labs": {
+        "HbA1c": {
+          "value": 7.7,
+          "unit": "%",
+          "recent": true
+        },
+        "BMI": {
+          "value": 32.6,
+          "unit": "kg/m2",
+          "recent": true
+        },
+        "eGFR": {
+          "value": 77.3,
+          "unit": "mL/min/1.73m2",
+          "status": "recorded"
+        }
+      },
+      "medications": [
+        {
+          "name": "Insulin Glargine (Lantus)",
+          "drug_class": "Long-Acting Insulin",
+          "dose": "20 units QHS"
+        },
+        {
+          "name": "Metformin",
+          "drug_class": "Biguanide",
+          "dose": "1000mg BID"
+        },
+        {
+          "name": "Lisinopril",
+          "drug_class": "ACE Inhibitor",
+          "dose": "10mg daily"
+        }
+      ],
+      "contraindications_cleared": [
+        "heart failure / acute coronary events",
+        "active kidney disease"
+      ]
+    }
+  },
+  {
+    "patient_id": "P045",
+    "name": "Peter Parker",
+    "clinical_text": "Peter Parker is a 58-year-old male with established Type 2 Diabetes Mellitus. Recent laboratory panel demonstrates an HbA1c of 7.9% and a calculated BMI of 27.5 kg/m2. Patient has been maintained on oral agents and has never required insulin therapy. Recent renal function and eGFR labs are not on file. No prior history of myocardial infarction or congestive heart failure. Patient reports bilateral burning sensation and tingling in feet consistent with diabetic peripheral neuropathy. Current regimen includes Metformin.",
+    "structured_profile": {
+      "demographics": {
+        "age": 58,
+        "gender": "male"
+      },
+      "conditions": [
+        {
+          "name": "Type 2 Diabetes Mellitus",
+          "synonyms": [
+            "T2D",
+            "NIDDM"
+          ],
+          "duration_years": 3
+        },
+        {
+          "name": "Diabetic Peripheral Neuropathy",
+          "status": "mild sensory impairment"
+        }
+      ],
+      "labs": {
+        "HbA1c": {
+          "value": 7.9,
+          "unit": "%",
+          "recent": true
+        },
+        "BMI": {
+          "value": 27.5,
+          "unit": "kg/m2",
+          "recent": true
+        },
+        "eGFR": {
+          "value": null,
+          "unit": "mL/min/1.73m2",
+          "status": "missing"
+        }
+      },
+      "medications": [
+        {
+          "name": "Metformin",
+          "drug_class": "Biguanide",
+          "dose": "1000mg BID"
+        }
+      ],
+      "contraindications_cleared": [
+        "prior insulin exposure",
+        "heart failure / acute coronary events",
+        "active kidney disease"
+      ]
+    }
+  },
+  {
+    "patient_id": "P046",
+    "name": "Gwen Stacy",
+    "clinical_text": "Gwen Stacy is a 50-year-old female with established Type 2 Diabetes Mellitus. Recent laboratory panel demonstrates an HbA1c of 7.5% and a calculated BMI of 31.6 kg/m2. Patient has been maintained on oral agents and has never required insulin therapy. Renal function is preserved with eGFR 72.6 mL/min/1.73m2. No prior history of myocardial infarction or congestive heart failure. Neurological exam normal with no peripheral sensory deficits. Current regimen includes Metformin, Sitagliptin (Januvia), Lisinopril.",
+    "structured_profile": {
+      "demographics": {
+        "age": 50,
+        "gender": "female"
+      },
+      "conditions": [
+        {
+          "name": "Type 2 Diabetes Mellitus",
+          "synonyms": [
+            "T2D",
+            "NIDDM"
+          ],
+          "duration_years": 5
+        },
+        {
+          "name": "Essential Hypertension",
+          "status": "controlled"
+        }
+      ],
+      "labs": {
+        "HbA1c": {
+          "value": 7.5,
+          "unit": "%",
+          "recent": true
+        },
+        "BMI": {
+          "value": 31.6,
+          "unit": "kg/m2",
+          "recent": true
+        },
+        "eGFR": {
+          "value": 72.6,
+          "unit": "mL/min/1.73m2",
+          "status": "recorded"
+        }
+      },
+      "medications": [
+        {
+          "name": "Metformin",
+          "drug_class": "Biguanide",
+          "dose": "1000mg BID"
+        },
+        {
+          "name": "Sitagliptin (Januvia)",
+          "drug_class": "DPP-4 Inhibitor",
+          "dose": "100mg daily"
+        },
+        {
+          "name": "Lisinopril",
+          "drug_class": "ACE Inhibitor",
+          "dose": "10mg daily"
+        }
+      ],
+      "contraindications_cleared": [
+        "prior insulin exposure",
+        "heart failure / acute coronary events",
+        "active kidney disease"
+      ]
+    }
+  },
+  {
+    "patient_id": "P047",
+    "name": "Stephen Strange",
+    "clinical_text": "Stephen Strange is a 62-year-old male with established Type 2 Diabetes Mellitus. Recent laboratory panel demonstrates an HbA1c of 6.6% and a calculated BMI of 33.0 kg/m2. Patient has been maintained on oral agents and has never required insulin therapy. Renal function is preserved with eGFR 66.9 mL/min/1.73m2. No prior history of myocardial infarction or congestive heart failure. Neurological exam normal with no peripheral sensory deficits. Current regimen includes Metformin.",
+    "structured_profile": {
+      "demographics": {
+        "age": 62,
+        "gender": "male"
+      },
+      "conditions": [
+        {
+          "name": "Type 2 Diabetes Mellitus",
+          "synonyms": [
+            "T2D",
+            "NIDDM"
+          ],
+          "duration_years": 3
+        }
+      ],
+      "labs": {
+        "HbA1c": {
+          "value": 6.6,
+          "unit": "%",
+          "recent": true
+        },
+        "BMI": {
+          "value": 33.0,
+          "unit": "kg/m2",
+          "recent": true
+        },
+        "eGFR": {
+          "value": 66.9,
+          "unit": "mL/min/1.73m2",
+          "status": "recorded"
+        }
+      },
+      "medications": [
+        {
+          "name": "Metformin",
+          "drug_class": "Biguanide",
+          "dose": "1000mg BID"
+        }
+      ],
+      "contraindications_cleared": [
+        "prior insulin exposure",
+        "heart failure / acute coronary events",
+        "active kidney disease"
+      ]
+    }
+  },
+  {
+    "patient_id": "P048",
+    "name": "Natasha Romanoff",
+    "clinical_text": "Natasha Romanoff is a 39-year-old female with established Type 2 Diabetes Mellitus. Recent laboratory panel demonstrates an HbA1c of 9.1% and a calculated BMI of 34.8 kg/m2. Patient is currently managed on basal insulin therapy. Recent renal function and eGFR labs are not on file. Medical history is notable for coronary artery disease. Neurological exam normal with no peripheral sensory deficits. Current regimen includes Insulin Glargine (Lantus), Metformin, Lisinopril.",
+    "structured_profile": {
+      "demographics": {
+        "age": 39,
+        "gender": "female"
+      },
+      "conditions": [
+        {
+          "name": "Type 2 Diabetes Mellitus",
+          "synonyms": [
+            "T2D",
+            "NIDDM"
+          ],
+          "duration_years": 3
+        },
+        {
+          "name": "Essential Hypertension",
+          "status": "controlled"
+        },
+        {
+          "name": "Coronary Artery Disease",
+          "status": "stable"
+        }
+      ],
+      "labs": {
+        "HbA1c": {
+          "value": 9.1,
+          "unit": "%",
+          "recent": true
+        },
+        "BMI": {
+          "value": 34.8,
+          "unit": "kg/m2",
+          "recent": true
+        },
+        "eGFR": {
+          "value": null,
+          "unit": "mL/min/1.73m2",
+          "status": "missing"
+        }
+      },
+      "medications": [
+        {
+          "name": "Insulin Glargine (Lantus)",
+          "drug_class": "Long-Acting Insulin",
+          "dose": "20 units QHS"
+        },
+        {
+          "name": "Metformin",
+          "drug_class": "Biguanide",
+          "dose": "1000mg BID"
+        },
+        {
+          "name": "Lisinopril",
+          "drug_class": "ACE Inhibitor",
+          "dose": "10mg daily"
+        }
+      ],
+      "contraindications_cleared": [
+        "active kidney disease"
+      ]
+    }
+  },
+  {
+    "patient_id": "P049",
+    "name": "Steve Rogers",
+    "clinical_text": "Steve Rogers is a 53-year-old male with established Type 2 Diabetes Mellitus. Recent laboratory panel demonstrates an HbA1c of 8.0% and a calculated BMI of 27.8 kg/m2. Patient has been maintained on oral agents and has never required insulin therapy. Renal assessment indicates chronic kidney impairment with eGFR of 39.8 mL/min/1.73m2. No prior history of myocardial infarction or congestive heart failure. Neurological exam normal with no peripheral sensory deficits. Current regimen includes Metformin, Sitagliptin (Januvia).",
+    "structured_profile": {
+      "demographics": {
+        "age": 53,
+        "gender": "male"
+      },
+      "conditions": [
+        {
+          "name": "Type 2 Diabetes Mellitus",
+          "synonyms": [
+            "T2D",
+            "NIDDM"
+          ],
+          "duration_years": 10
+        },
+        {
+          "name": "Chronic Kidney Disease",
+          "status": "moderate renal impairment"
+        }
+      ],
+      "labs": {
+        "HbA1c": {
+          "value": 8.0,
+          "unit": "%",
+          "recent": true
+        },
+        "BMI": {
+          "value": 27.8,
+          "unit": "kg/m2",
+          "recent": true
+        },
+        "eGFR": {
+          "value": 39.8,
+          "unit": "mL/min/1.73m2",
+          "status": "recorded"
+        }
+      },
+      "medications": [
+        {
+          "name": "Metformin",
+          "drug_class": "Biguanide",
+          "dose": "1000mg BID"
+        },
+        {
+          "name": "Sitagliptin (Januvia)",
+          "drug_class": "DPP-4 Inhibitor",
+          "dose": "100mg daily"
+        }
+      ],
+      "contraindications_cleared": [
+        "prior insulin exposure",
+        "heart failure / acute coronary events"
+      ]
+    }
+  },
+  {
+    "patient_id": "P050",
+    "name": "Carol Danvers",
+    "clinical_text": "Carol Danvers is a 67-year-old female with established Type 2 Diabetes Mellitus. Recent laboratory panel demonstrates an HbA1c of 7.0% and a calculated BMI of 35.7 kg/m2. Patient has been maintained on oral agents and has never required insulin therapy. Renal function is preserved with eGFR 83.8 mL/min/1.73m2. No prior history of myocardial infarction or congestive heart failure. Patient reports bilateral burning sensation and tingling in feet consistent with diabetic peripheral neuropathy. Current regimen includes Metformin, Lisinopril.",
+    "structured_profile": {
+      "demographics": {
+        "age": 67,
+        "gender": "female"
+      },
+      "conditions": [
+        {
+          "name": "Type 2 Diabetes Mellitus",
+          "synonyms": [
+            "T2D",
+            "NIDDM"
+          ],
+          "duration_years": 9
+        },
+        {
+          "name": "Essential Hypertension",
+          "status": "controlled"
+        },
+        {
+          "name": "Diabetic Peripheral Neuropathy",
+          "status": "mild sensory impairment"
+        }
+      ],
+      "labs": {
+        "HbA1c": {
+          "value": 7.0,
+          "unit": "%",
+          "recent": true
+        },
+        "BMI": {
+          "value": 35.7,
+          "unit": "kg/m2",
+          "recent": true
+        },
+        "eGFR": {
+          "value": 83.8,
+          "unit": "mL/min/1.73m2",
+          "status": "recorded"
+        }
+      },
+      "medications": [
+        {
+          "name": "Metformin",
+          "drug_class": "Biguanide",
+          "dose": "1000mg BID"
+        },
+        {
+          "name": "Lisinopril",
+          "drug_class": "ACE Inhibitor",
+          "dose": "10mg daily"
+        }
+      ],
+      "contraindications_cleared": [
+        "prior insulin exposure",
+        "heart failure / acute coronary events",
+        "active kidney disease"
+      ]
+    }
+  }
+]
